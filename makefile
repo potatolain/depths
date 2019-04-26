@@ -6,7 +6,7 @@
 # ===== USER SETTINGS START HERE =====
 
 # The name of the output rom, without the trailing .nes.
-ROM_NAME=starter
+ROM_NAME=ld44
 
 # ===== USER SETTINGS END HERE =====
 

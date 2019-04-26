@@ -21,19 +21,10 @@ jobs:
           path: ./rom
       - run: 
           name: Upload to version number in s3
-          command: aws s3 cp --region us-east-1 ./rom/starter.nes s3://nes-starter-kit/$CIRCLE_BRANCH/starter.$CIRCLE_BUILD_NUM.nes --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+          command: aws s3 cp --region us-east-1 ./rom/ld44.nes s3://cpprograms-nes-games-https/ld44/$CIRCLE_BRANCH/ld44.$CIRCLE_BUILD_NUM.nes --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
       - run: 
           name: Replace "latest" rom file in s3
-          command: aws s3 cp --region us-east-1 ./rom/starter.nes s3://nes-starter-kit/$CIRCLE_BRANCH/starter.latest.nes --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-      - run:
-          name: Update jekyll documentation on a branch
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git config user.email "automation@cpprograms.net"
-              git config user.name "CircleCI Automation"
-              git config credential.helper 'cache --timeout=120'
-              git fetch && git checkout gh-pages && git merge origin/master -m "Automatic merge of master" && ./tools/jekyll_post_processor/jekyll_post_processor.sh && git add _docs && git commit -a --allow-empty -m "Automated documentation update [ci skip]" && git push
-            fi
+          command: aws s3 cp --region us-east-1 ./rom/ld44.nes s3://cpprograms-nes-games-https/ld44/$CIRCLE_BRANCH/ld44.latest.nes --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 workflows:
   version: 2
