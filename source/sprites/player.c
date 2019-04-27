@@ -193,6 +193,13 @@ void handle_player_movement(void) {
 
     if (lastPlayerSpriteCollisionId != DRIFTWOOD_ID && (frameCount & 0x07) == 0x07) {
         playerStamina--;
+        if (playerStamina == 0 || playerStamina > 240) {
+            gameState = GAME_STATE_GAME_OVER;
+            music_stop();
+            sfx_play(SFX_GAMEOVER, SFX_CHANNEL_1);
+            return;
+        }
+
     }
 
 }
@@ -467,6 +474,15 @@ void handle_player_sprite_collision(void) {
 
                 playerStamina -= 8;
                 playerInvulnerabilityTime = PLAYER_DAMAGE_INVULNERABILITY_TIME;
+
+                if (playerStamina == 0 || playerStamina > 240) {
+                    gameState = GAME_STATE_GAME_OVER;
+                    music_stop();
+                    sfx_play(SFX_GAMEOVER, SFX_CHANNEL_1);
+                    return;
+                }
+
+
                 break;
         }
 
