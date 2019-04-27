@@ -112,7 +112,7 @@ void draw_title1(void) {
 void handle_title_input(void) {
 
 	++tempChara;
-	if (titlePhase == 0 && tempChara == 128) {
+	if (titlePhase == 0 && tempChara == 192) {
 		++titlePhase;
 		draw_title_screen_real();
 	}
