@@ -37,7 +37,7 @@ const unsigned char game_over[394]={
 0xf6,0x02,0x1b,0xf1,0x00,0x02,0x7f,0x00,0x02,0x00
 };
 
-#define FATE_COUNT 8
+#define FATE_COUNT 10
 const unsigned char* unfortunateFates[] = {
 //  "                         "
     "passing away in an       ",
@@ -58,11 +58,17 @@ const unsigned char* unfortunateFates[] = {
     "Just... passing away,    ",
     "for no obvious reason.",
 
-    "Passing away from a heart",
+    "passing away from a heart",
     "attack.",
 
-    "A plane's engines        ",
-    "failing at 30, 000 feet. "
+    "a plane's engines        ",
+    "failing at 30, 000 feet. ",
+
+    "a voice saying it would  ",
+    "easier to pass away.     ",
+
+    "a voice suggesting that  ",
+    "no one wants you.        "
 
 };
 
