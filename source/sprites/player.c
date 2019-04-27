@@ -61,17 +61,78 @@ const unsigned char* preserverText[] = {
                                 ,
 
 
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
+                                "Did... did this life preserver"
+                                "just meow at me?              "
+                                "                              "
 
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
+                                "It seems to have a face. It   "
+                                "reminds me a lot of my cat.   "
+                                "                              "
 
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
+                                "I need to stay afloat for him."
+                                "                              "
+                                "                              "
+                                
+                                "I'll take this with me.       "
+                                "Another life preserver in my  "
+                                "collection always helps.      "
+                                
+                                "Come on Maxwell <3"
+                                
+                                ,
 
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
+
+                                "Touching this, memories of a  "
+                                "close friend come flooding    "
+                                "back.                         "
+
+                                "I have to press on for the    "
+                                "them. They wouldn't want me to"
+                                "drown out here.               "
+
+                                "Remembering this, I feel I can"
+                                "keep going even farther!"
+                                
+                                ,
+
+                                "This thing has a game         "
+                                "controller pattern on it...   "
+                                "                              "
+                                
+                                "It reminds me of a goal of    "
+                                "mine. I want to make a game   "
+                                "that changes someone's life.  "
+
+                                "Nothing I've made has done    "
+                                "that yet. I have to stay      "
+                                "afloat to keep trying!        "
+
+                                "Remembering this, I find my   "
+                                "will to carry on increasing   "
+                                
+                                ,
+
+                                "Another preserver... I am     "
+                                "building quite the collection."
+                                "                              "
+
+                                "The letters on this; those are"
+                                "my mother's initials. What    "
+                                "would she think of me drowning"
+
+                                "out here?                     "
+                                "                              "
+                                "                              "
+
+                                "I have to stay afloat for her."
+                                "I must.                       "
+                                "                              "
+
+                                "This little reminder gave me  "
+                                "just a bit more strength. I   "
+                                "will stay afloat!             "
+                                
+                                ,
 
                                 "Hey, you put me on another    "
                                 "screen! Cool!",
