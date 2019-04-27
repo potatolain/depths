@@ -51,3 +51,7 @@ void test_player_tile_collision(void);
 
 // The sprite update method gives us an id of a sprite that we most recently hit. This reacts to that appropriately.
 void handle_player_sprite_collision(void);
+
+
+
+#define PLAYER_MAX_STAMINA 127

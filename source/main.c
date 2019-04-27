@@ -27,7 +27,7 @@ This has the main loop for the game, which is then used to call out to other cod
 // Note that if variables aren't set in this method, they will start at 0 on NES startup.
 void initialize_variables(void) {
 
-    playerOverworldPosition = 0; // Which tile on the overworld to start with; 0-62
+    playerOverworldPosition = 27; // Which tile on the overworld to start with; 0-62
     playerHealth = 5; // Player's starting health - how many hearts to show on the HUD.
     playerMaxHealth = 5; // Player's max health - how many hearts to let the player collect before it doesn't count.
     playerXPosition = (128 << PLAYER_POSITION_SHIFT); // X position on the screen to start (increasing numbers as you go left to right. Just change the number)
@@ -37,6 +37,11 @@ void initialize_variables(void) {
     lastPlayerSpriteCollisionId = NO_SPRITE_HIT;
 
     currentWorldId = WORLD_OVERWORLD; // The ID of the world to load.
+    playerStamina = PLAYER_MAX_STAMINA;
+
+    //waveDirection = SPRITE_DIRECTION_RIGHT;
+    waveDirection = SPRITE_DIRECTION_STATIONARY;
+    wavePosition = 0;
     
     // Little bit of generic initialization below this point - we need to set
     // The system up to use a different hardware bank for sprites vs backgrounds.
@@ -48,7 +53,10 @@ void main(void) {
     gameState = GAME_STATE_SYSTEM_INIT;
 
     while (1) {
-        everyOtherCycle = !everyOtherCycle;
+        ++everyOtherCycle;
+        if (everyOtherCycle > 3) {
+            everyOtherCycle = 0;
+        }
         switch (gameState) {
             case GAME_STATE_SYSTEM_INIT:
                 initialize_variables();

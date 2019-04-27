@@ -13,6 +13,7 @@ ZEROPAGE_DEF(unsigned char, playerlifePreserverCount);
 ZEROPAGE_DEF(unsigned char, playerMaxHealth);
 ZEROPAGE_DEF(unsigned char, gameState);
 ZEROPAGE_DEF(unsigned char, currentWorldId);
+ZEROPAGE_DEF(unsigned char, playerStamina);
 
 ZEROPAGE_ARRAY_DEF(unsigned char, screenBuffer, 0x20);
 
@@ -20,6 +21,9 @@ ZEROPAGE_DEF(unsigned char, everyOtherCycle);
 
 ZEROPAGE_DEF(unsigned char, controllerState);
 ZEROPAGE_DEF(unsigned char, lastControllerState);
+
+ZEROPAGE_DEF(unsigned char, waveDirection);
+ZEROPAGE_DEF(unsigned char, wavePosition);
 
 ZEROPAGE_DEF(unsigned char, tempChar1);
 ZEROPAGE_DEF(unsigned char, tempChar2);

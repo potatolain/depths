@@ -15,6 +15,8 @@ ZEROPAGE_EXTERN(unsigned char, playerlifePreserverCount);
 ZEROPAGE_EXTERN(unsigned char, playerMaxHealth);
 ZEROPAGE_EXTERN(unsigned char, currentWorldId);
 
+ZEROPAGE_EXTERN(unsigned char, playerStamina);
+
 ZEROPAGE_ARRAY_EXTERN(unsigned char, screenBuffer, 0x20);
 
 ZEROPAGE_EXTERN(unsigned char, controllerState);
@@ -24,6 +26,10 @@ ZEROPAGE_EXTERN(unsigned char, lastControllerState);
 // Note: DO NOT try to alter this with your code; you will almost certainly cause unusual behavior.
 ZEROPAGE_EXTERN(unsigned char, frameCount);
 ZEROPAGE_EXTERN(unsigned char, everyOtherCycle);
+
+ZEROPAGE_EXTERN(unsigned char, waveDirection);
+ZEROPAGE_EXTERN(unsigned char, wavePosition);
+
 
 // A few temp variables we'll reuse a lot... be sure not to expect the state of these to stick around
 // for *any* function call. If in doubt, create a new variable. These have the advantage of being in 

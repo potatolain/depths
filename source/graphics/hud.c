@@ -2,6 +2,10 @@
 #include "source/graphics/hud.h"
 #include "source/globals.h"
 
+#define LIFE_PRES_TXT 0xc9
+#define STAMINA_TXT 0xd9
+#define BAR_IMG 0xd0
+
 CODE_BANK(PRG_BANK_HUD);
 
 void draw_hud(void) {
@@ -19,6 +23,27 @@ void draw_hud(void) {
     for (i = 0; i != 16; ++i) {
         vram_put(0xff);
     }
+
+    vram_adr(NAMETABLE_A + HUD_HEART_START - 32);
+
+    for (i = 0; i != 6; ++i) {
+        vram_put(STAMINA_TXT + i);
+    }
+    vram_put(STAMINA_TXT + 2); // a
+
+    vram_adr(NAMETABLE_A + HUD_KEY_START - 40);
+    vram_put(LIFE_PRES_TXT + 0);
+    vram_put(LIFE_PRES_TXT + 1);
+    vram_put(LIFE_PRES_TXT + 2);
+    vram_put(LIFE_PRES_TXT + 3);
+    vram_put(LIFE_PRES_TXT + 2);
+    vram_put(LIFE_PRES_TXT + 1);
+    vram_put(LIFE_PRES_TXT + 4);
+    vram_put(LIFE_PRES_TXT + 2);
+    vram_put(LIFE_PRES_TXT + 1);
+    vram_put(LIFE_PRES_TXT + 3);
+
+    
 }
 
 void update_hud(void) {
@@ -29,24 +54,28 @@ void update_hud(void) {
     // We use i for the index on screen buffer, so we don't have to shift things around
     // as we add values. 
     i = 0;
+    tempChar1 = playerStamina >> 1;
     screenBuffer[i++] = MSB(NAMETABLE_A + HUD_HEART_START) | NT_UPD_HORZ;
     screenBuffer[i++] = LSB(NAMETABLE_A + HUD_HEART_START);
-    screenBuffer[i++] = playerMaxHealth;
-    // Add one heart for every health the player has
-    for (j = 0; j != playerHealth; ++j) {
-        screenBuffer[i++] = HUD_TILE_HEART;
-    }
-    // Using the same variable, add empty hearts up to max health
-    for (; j != playerMaxHealth; ++j) {
-        screenBuffer[i++] = HUD_TILE_HEART_EMPTY;
+    screenBuffer[i++] = 8;
+
+    for (j = 0; j != 8; ++j) {
+        if (tempChar1 > 7) {
+            screenBuffer[i++] = BAR_IMG+8;
+            tempChar1 -= 8;
+        } else {
+            screenBuffer[i++] = BAR_IMG+tempChar1;
+            tempChar1 = 0;
+        }
     }
 
-    // Next, draw the key count, using the key tile, and our key count variable
-    screenBuffer[i++] = MSB(NAMETABLE_A + HUD_KEY_START) | NT_UPD_HORZ;
-    screenBuffer[i++] = LSB(NAMETABLE_A + HUD_KEY_START);
+    // Next, draw the preserver count, using the key tile, and our key count variable
+    screenBuffer[i++] = MSB(NAMETABLE_A + 0x379) | NT_UPD_HORZ;
+    screenBuffer[i++] = LSB(NAMETABLE_A + 0x379);
     screenBuffer[i++] = 2;
-    screenBuffer[i++] = HUD_TILE_KEY;
+    screenBuffer[i++] = HUD_TILE_NUMBER;
     screenBuffer[i++] = HUD_TILE_NUMBER + playerlifePreserverCount;
+
 
 
     screenBuffer[i++] = NT_UPD_EOF;

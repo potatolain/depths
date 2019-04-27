@@ -41,6 +41,49 @@ void do_sprite_movement_with_collision(void);
 void update_map_sprites(void) {
     lastPlayerSpriteCollisionId = NO_SPRITE_HIT;
 
+    if (wavePosition == 0 && waveDirection != SPRITE_DIRECTION_STATIONARY) {
+        if (((waveDirection == SPRITE_DIRECTION_LEFT && playerXPosition > (PLAYER_WIDTH_EXTENDED + 50)) || (waveDirection == SPRITE_DIRECTION_RIGHT && playerXPosition < (3840)))) {
+            //crash_error("yep", "yep", "yep", 5);
+            tempInt1 = waveDirection == SPRITE_DIRECTION_RIGHT ? 3840 : 0;
+            tempInt2 = (((unsigned int)(rand8() % 9)) << (SPRITE_POSITION_SHIFT+4)) + (HUD_PIXEL_HEIGHT<<SPRITE_POSITION_SHIFT);
+
+            for (i = 5; i != 8; ++i) {
+                currentMapSpriteIndex = (i) << MAP_SPRITE_OAM_SHIFT;
+
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X] = (tempInt1 & 0xff);
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X+1] = (tempInt1 >> 8);
+                
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y] = (tempInt2 & 0xff);
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y+1] = (tempInt2 >> 8);
+
+
+                // Copy the simple bytes from the sprite definition to someplace more easily accessible (and modify-able!)
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_TILE_ID] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_TILE_ID];
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_TYPE] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_TYPE];
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_SIZE_PALETTE] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_SIZE_PALETTE];
+                if (waveDirection == SPRITE_DIRECTION_LEFT) {
+                    currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_SLIDE_SPEED] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_HEALTH];
+                } else {
+                    currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_SLIDE_SPEED] = 0 - (signed char)spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_HEALTH];
+                }
+
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_ANIMATION_TYPE] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_ANIMATION_TYPE];
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_MOVEMENT_TYPE] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_MOVEMENT_TYPE];
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_MOVE_SPEED] = spriteDefinitions[WAVE_ID_POS + SPRITE_DEF_POSITION_MOVE_SPEED];
+                currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_CURRENT_DIRECTION] = waveDirection;
+
+
+
+                tempInt2 += (16 <<  SPRITE_POSITION_SHIFT);
+            }
+        }
+        wavePosition = 255;
+    } else {
+        if ((frameCount & 0x01) == 0x0) {
+            --wavePosition;
+        }
+    }
+
     // To save some cpu time, we only update sprites every other frame - even sprites on even frames, odd sprites on odd frames.
     for (i = 0; i < MAP_MAX_SPRITES; ++i) {
         currentMapSpriteIndex = i << MAP_SPRITE_DATA_SHIFT;
@@ -123,19 +166,21 @@ void update_map_sprites(void) {
         }
         // We only want to do movement once every other frame, to save some cpu time.
         // So, split this to update even sprites on even frames, odd sprites on odd frames
-        if ((i & 0x01) == everyOtherCycle) {
+        if ((i & 0x03) == everyOtherCycle) {
 
             switch (currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_MOVEMENT_TYPE]) {
                 case SPRITE_MOVEMENT_LEFT_RIGHT:
+
                     // Get the speed to travel at
                     currentSpriteData = currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_SLIDE_SPEED];
 
                     // If it's positive, add to X to get the right of the sprite
-                    if ((signed char) currentSpriteData > 0) {
+                    /*if ((signed char) currentSpriteData > 0) {
                         sprX += currentSpriteFullTileCollisionWidth;
-                    }
+                    }*/
                     // Add speed in
                     sprX += (signed char)currentSpriteData;
+                    /*
                     if (test_collision(currentMap[SPRITE_MAP_POSITION(sprX, sprY + SPRITE_TILE_HITBOX_OFFSET)], 0) || test_collision(currentMap[SPRITE_MAP_POSITION(sprX, sprY + currentSpriteFullTileCollisionHeight)], 0)) {
                         // Never mind... leave X position alone for now
                         sprX -= (signed char)currentSpriteData;
@@ -146,17 +191,22 @@ void update_map_sprites(void) {
 
                         // And... flip the direction!
                         currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_SLIDE_SPEED] = 0 - (signed char)currentSpriteData;
-                    } else {
+                    } else {*/
                         // No collision! Roll back our change to pick right of the sprite
+                        /*
                         if ((signed char) currentSpriteData > 0) {
                             sprX -= currentSpriteFullTileCollisionWidth;
-                        }
+                        }*/
+
+                        /*if (sprX > 3840 || sprX < 5) {
+                            currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+                        }*/
 
 
                         // And move the sprite over!
                         currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X] = (sprX & 0xff);
                         currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X+1] = (sprX >> 8);
-                    }
+                    //}
 
                     break;
                 case SPRITE_MOVEMENT_UP_DOWN:

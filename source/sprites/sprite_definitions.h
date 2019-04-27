@@ -42,6 +42,9 @@
 #define SPRITE_TYPE_ENDGAME 0x07
 #define SPRITE_TYPE_NPC 0x10
 
+#define SPRITE_TYPE_WAVE 0x11
+#define SPRITE_TYPE_DRIFTWOOD 0x12
+
 // Use this when a sprite is destroyed - this will skip all logic about the sprite.
 #define SPRITE_TYPE_OFFSCREEN 0x7f
 
@@ -69,3 +72,6 @@
 
 extern const unsigned char spriteDefinitions[];
 
+
+#define DRIFTWOOD_ID 0
+#define WAVE_ID_POS 8

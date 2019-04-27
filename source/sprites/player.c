@@ -90,6 +90,7 @@ void handle_player_movement(void) {
         gameState = GAME_STATE_PAUSED;
         return;
     }
+
     if (playerControlsLockTime) {
         // If your controls are locked, just tick down the timer until they stop being locked. Don't read player input.
         playerControlsLockTime--;
@@ -188,6 +189,10 @@ void handle_player_movement(void) {
             gameState = GAME_STATE_SCREEN_SCROLL;
             playerOverworldPosition -= 8;
         }
+    }
+
+    if (lastPlayerSpriteCollisionId != DRIFTWOOD_ID && (frameCount & 0x07) == 0x07) {
+        playerStamina--;
     }
 
 }
@@ -429,7 +434,40 @@ void handle_player_sprite_collision(void) {
                 }
                 break;
 
+            case SPRITE_TYPE_DRIFTWOOD:
+                if (playerStamina < PLAYER_MAX_STAMINA) {
+                    ++playerStamina;
+                } else {
+                    playerStamina = PLAYER_MAX_STAMINA;
+                }
 
+                // Calculate position...
+                tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
+                tempSpriteCollisionY = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y + 1]) << 8));
+
+                // Are we colliding?
+                // NOTE: We take a bit of a shortcut here and assume all doors are 16x16 (the hard-coded 16 value below)
+                if (
+                    playerXPosition < tempSpriteCollisionX + (16 << PLAYER_POSITION_SHIFT) &&
+                    playerXPosition + PLAYER_WIDTH_EXTENDED > tempSpriteCollisionX &&
+                    playerYPosition < tempSpriteCollisionY + (16 << PLAYER_POSITION_SHIFT) &&
+                    playerYPosition + PLAYER_HEIGHT_EXTENDED > tempSpriteCollisionY
+                ) {
+                    playerXPosition -= playerXVelocity;
+                    playerYPosition -= playerYVelocity;
+                    playerControlsLockTime = 0;
+                }
+
+
+                break;
+            case SPRITE_TYPE_WAVE:
+                if (playerInvulnerabilityTime) {
+                    return;
+                }
+
+                playerStamina -= 8;
+                playerInvulnerabilityTime = PLAYER_DAMAGE_INVULNERABILITY_TIME;
+                break;
         }
 
     }
