@@ -440,6 +440,48 @@ void handle_player_sprite_collision(void) {
                     }
                 }
                 break;
+            case SPRITE_TYPE_PRESERVER:
+                // Okay, we collided with this NPC before we calculated the player's movement. After being moved, does the 
+                // new player position also collide? If so, stop it. Else, let it go.
+
+                // Calculate position...
+                tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
+                tempSpriteCollisionY = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y + 1]) << 8));
+                // Are we colliding?
+                // NOTE: We take a bit of a shortcut here and assume all NPCs are 16x16 (the hard-coded 16 value below)
+                if (
+                    playerXPosition < tempSpriteCollisionX + (16 << PLAYER_POSITION_SHIFT) &&
+                    playerXPosition + PLAYER_WIDTH_EXTENDED > tempSpriteCollisionX &&
+                    playerYPosition < tempSpriteCollisionY + (16 << PLAYER_POSITION_SHIFT) &&
+                    playerYPosition + PLAYER_HEIGHT_EXTENDED > tempSpriteCollisionY
+                ) {
+                    playerXPosition -= playerXVelocity;
+                    playerYPosition -= playerYVelocity;
+                    playerControlsLockTime = 0;
+                }
+
+                if (playerlifePreserverCount < MAX_LIFE_PRESERVER_COUNT) {
+                    // Show the text for the player on the first screen
+                    if (playerOverworldPosition == 0) {
+                        trigger_game_text(introductionText);
+                    } else {
+                        // If it's on another screen, show some different text :)
+                        trigger_game_text(movedText);
+                    }
+
+
+                    ++playerlifePreserverCount;
+                    currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+
+                    sfx_play(SFX_KEY, SFX_CHANNEL_3);
+
+                    // Mark the sprite as collected, so we can't get it again.
+                    currentMapSpritePersistance[playerOverworldPosition] |= bitToByte[lastPlayerSpriteCollisionId];
+                }
+
+
+
+                break;
 
             case SPRITE_TYPE_DRIFTWOOD:
                 if (playerStamina < PLAYER_MAX_STAMINA) {

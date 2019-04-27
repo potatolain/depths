@@ -44,6 +44,7 @@
 
 #define SPRITE_TYPE_WAVE 0x11
 #define SPRITE_TYPE_DRIFTWOOD 0x12
+#define SPRITE_TYPE_PRESERVER 0x13
 
 // Use this when a sprite is destroyed - this will skip all logic about the sprite.
 #define SPRITE_TYPE_OFFSCREEN 0x7f
