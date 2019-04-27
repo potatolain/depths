@@ -562,7 +562,9 @@ void handle_player_sprite_collision(void) {
 
 
                     ++playerlifePreserverCount;
-                    currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+                    currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_DRIFTWOOD;
+                    currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_SIZE_PALETTE] = SPRITE_SIZE_16PX_16PX | SPRITE_PALETTE_2;
+                    currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID] = spriteDefinitions[(DRIFTWOOD_ID<<SPRITE_DEF_SHIFT)+SPRITE_DEF_POSITION_TILE_ID];
                     playerMaxStamina = (PLAYER_START_MAX_STAMINA + (playerlifePreserverCount<<3));
                     playerStamina = playerMaxStamina;
 

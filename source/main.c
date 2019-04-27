@@ -164,9 +164,9 @@ void main(void) {
                 banked_call(PRG_BANK_GAME_OVER, draw_game_over_screen);
                 fade_in();
                 banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
-                fade_out();
                 if (hasGameOvered != 255)
                     ++hasGameOvered;
+                oam_clear();
                 gameState = GAME_STATE_POST_TITLE;
                 break;
             case GAME_STATE_CREDITS:

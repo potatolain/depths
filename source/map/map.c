@@ -60,7 +60,17 @@ void load_sprites(void) {
         spritePosition = currentMap[(MAP_DATA_TILE_LENGTH) + (i<<1)];
 
 
-        if (spritePosition != 255 && !(currentMapSpritePersistance[playerOverworldPosition] & bitToByte[i])) {
+        if (spritePosition != 255) {
+            if (currentMapSpritePersistance[playerOverworldPosition] & bitToByte[i]) {
+                if (spriteDefinitions[spriteDefinitionIndex + SPRITE_DEF_POSITION_TYPE] == SPRITE_TYPE_PRESERVER) {
+                    spriteDefinitionIndex = (DRIFTWOOD_ID<<SPRITE_DEF_SHIFT);
+                } else {
+                    currentMapSpriteData[mapSpriteDataIndex + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+                    return;
+                }
+            }
+
+
 
             // Get X converted to our extended 16-bit int size.
             currentValue = (spritePosition & 0x0f) << 8;
@@ -87,7 +97,6 @@ void load_sprites(void) {
             currentMapSpriteData[mapSpriteDataIndex + MAP_SPRITE_DATA_POS_DAMAGE] = spriteDefinitions[spriteDefinitionIndex + SPRITE_DEF_POSITION_DAMAGE];
 
         } else {
-            // Go away
             currentMapSpriteData[mapSpriteDataIndex + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
         }
     }
