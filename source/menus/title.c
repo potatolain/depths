@@ -20,7 +20,7 @@ void draw_title_screen(void) {
 	oam_clear();
 
     
-    put_str(NTADR_A(7, 5), gameName);
+    put_str(NTADR_A(12, 5), gameName);
 	
 	put_str(NTADR_A(2, 26), gameAuthorContact);
 	

@@ -132,7 +132,7 @@ screenBuffer[i++] = MSB(NAMETABLE_A + HUD_KEY_START) | NT_UPD_HORZ;
 screenBuffer[i++] = LSB(NAMETABLE_A + HUD_KEY_START);
 screenBuffer[i++] = 2;
 screenBuffer[i++] = HUD_TILE_KEY;
-screenBuffer[i++] = HUD_TILE_NUMBER + playerKeyCount;
+screenBuffer[i++] = HUD_TILE_NUMBER + playerlifePreserverCount;
 
 screenBuffer[i++] = NT_UPD_EOF;
 set_vram_update(screenBuffer);

@@ -11,7 +11,7 @@ ZEROPAGE_EXTERN(unsigned char, gameState);
 ZEROPAGE_EXTERN(unsigned char, i);
 ZEROPAGE_EXTERN(unsigned char, j);
 ZEROPAGE_EXTERN(unsigned char, playerHealth);
-ZEROPAGE_EXTERN(unsigned char, playerKeyCount);
+ZEROPAGE_EXTERN(unsigned char, playerlifePreserverCount);
 ZEROPAGE_EXTERN(unsigned char, playerMaxHealth);
 ZEROPAGE_EXTERN(unsigned char, currentWorldId);
 

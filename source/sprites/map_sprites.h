@@ -3,7 +3,7 @@
 #define NO_SPRITE_HIT 255
 
 // Maximum number of keys to let the player pick up.
-#define MAX_KEY_COUNT 9
+#define MAX_LIFE_PRESERVER_COUNT 9
 
 // We make our 16x16 sprites a little bit smaller than they appear, so collisions with them are
 // less likely. This makes getting hit by enemies less likely. This is only for collisions with
