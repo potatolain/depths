@@ -25,6 +25,8 @@ ZEROPAGE_DEF(unsigned char, playerInvulnerabilityTime);
 ZEROPAGE_DEF(unsigned char, playerDirection);
 ZEROPAGE_DEF(unsigned char, playerMaxStamina);
 
+ZEROPAGE_DEF(unsigned char, inSlowStuff);
+
 // Huge pile of temporary variables
 #define rawXPosition tempChar1
 #define rawYPosition tempChar2
@@ -61,6 +63,20 @@ const unsigned char* preserverText[] = {
                                 ,
 
 
+                                "Touching this, memories of a  "
+                                "close friend come flooding    "
+                                "back.                         "
+
+                                "I have to press on for the    "
+                                "them. They wouldn't want me to"
+                                "drown out here.               "
+
+                                "Remembering this, I feel I can"
+                                "keep going even farther!"
+                                
+                                ,
+
+
                                 "Did... did this life preserver"
                                 "just meow at me?              "
                                 "                              "
@@ -78,20 +94,6 @@ const unsigned char* preserverText[] = {
                                 "collection always helps.      "
                                 
                                 "Come on Maxwell <3"
-                                
-                                ,
-
-
-                                "Touching this, memories of a  "
-                                "close friend come flooding    "
-                                "back.                         "
-
-                                "I have to press on for the    "
-                                "them. They wouldn't want me to"
-                                "drown out here.               "
-
-                                "Remembering this, I feel I can"
-                                "keep going even farther!"
                                 
                                 ,
 
@@ -246,6 +248,10 @@ void handle_player_movement(void) {
         return;
     }
 
+    if (inSlowStuff) {
+        maxVelocity >>= 2;
+    }
+
     if (playerControlsLockTime) {
         // If your controls are locked, just tick down the timer until they stop being locked. Don't read player input.
         playerControlsLockTime--;
@@ -392,7 +398,7 @@ void test_player_tile_collision(void) {
 			if (test_collision(currentMap[PLAYER_MAP_POSITION(collisionTempX, collisionTempY)], 1) || test_collision(currentMap[PLAYER_MAP_POSITION(collisionTempXRight, collisionTempY)], 1)) {
                 playerYVelocity = 0;
                 playerControlsLockTime = 0;
-            }
+            } 
             if (!playerControlsLockTime) {
                 playerDirection = SPRITE_DIRECTION_UP;
             }
@@ -448,6 +454,17 @@ void test_player_tile_collision(void) {
             }
         }
 	}
+
+    collisionTempX += 6;
+    collisionTempY += 6;
+    // NOTE: This is a HACK
+    collisionTempXRight = currentMap[PLAYER_MAP_POSITION(collisionTempX, collisionTempY)] & 0x3f;
+
+    if (collisionTempXRight > 15 && collisionTempXRight < 23) {
+        inSlowStuff = 1;
+    } else {
+        inSlowStuff = 0;
+    }
 
     playerXPosition += playerXVelocity;
     playerYPosition += playerYVelocity;

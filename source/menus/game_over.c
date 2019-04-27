@@ -62,13 +62,13 @@ const unsigned char* unfortunateFates[] = {
     "attack.",
 
     "a plane's engines        ",
-    "failing at 30, 000 feet. ",
+    "failing at 30,000 feet.  ",
 
     "a voice saying it would  ",
     "easier to pass away.     ",
 
     "a voice suggesting that  ",
-    "no one wants you.        "
+    "no one wants me.        "
 
 };
 
