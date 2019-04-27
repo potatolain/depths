@@ -23,11 +23,11 @@ void _fade_in(unsigned char speed) {
 }
 
 void fade_in(void) {
-    _fade_in(2);
+    _fade_in(4);
 }
 
 void fade_out(void) {
-    _fade_out(2);
+    _fade_out(4);
 }
 
 void fade_out_instant(void) {
