@@ -11,6 +11,7 @@
 #include "source/menus/error.h"
 #include "source/graphics/hud.h"
 #include "source/graphics/game_text.h"
+#include "source/menus/error.h"
 
 CODE_BANK(PRG_BANK_PLAYER_SPRITE);
 
@@ -22,6 +23,7 @@ ZEROPAGE_DEF(int, playerYVelocity);
 ZEROPAGE_DEF(unsigned char, playerControlsLockTime);
 ZEROPAGE_DEF(unsigned char, playerInvulnerabilityTime);
 ZEROPAGE_DEF(unsigned char, playerDirection);
+ZEROPAGE_DEF(unsigned char, playerMaxStamina);
 
 // Huge pile of temporary variables
 #define rawXPosition tempChar1
@@ -38,17 +40,109 @@ ZEROPAGE_DEF(unsigned char, playerDirection);
 #define collisionTempXInt tempInt3
 #define collisionTempYInt tempInt4
 
- const unsigned char* introductionText = 
-                                "Welcome to nes-starter-kit! I " 
-                                "am an NPC.                    "
+//                                "                              "
+
+
+const unsigned char* preserverText[] = {
+
+
+                                "This small raft has a bottle  "
+                                "of pills on it.               "
                                 "                              "
 
-                                "Hope you're having fun!       "
-                                "                              "
-                                "- Chris";
-const unsigned char* movedText = 
+                                "wait... these are MY pills. My"
+                                "name is on the bottle. Just   "
+                                "as my psychiatrist prescribed."
+
+                                "Weird... as I take them, I    "
+                                "feel I can stay afloat just a "
+                                "little longer."
+                                
+                                ,
+
+
                                 "Hey, you put me on another    "
-                                "screen! Cool!";
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!",
+
+                                "Hey, you put me on another    "
+                                "screen! Cool!"
+
+};
+
+const unsigned char* startFirstPlayText = 
+                                "Where am I? I don't recall how"
+                                "I got here...                 "
+                                "                              "
+                                
+                                "I'm in the middle of the ocean"
+                                "I have to stay afloat...      ";
+
+const unsigned char* startPostGameOverText = 
+                                "Somehow I found myself back   "
+                                "here, still alive and afloat. "
+                                "                              "
+
+                                "I can't let myself get dragged"
+                                "to the bottom like that! I    "
+                                "have to keep living!          "
+
+                                "I need to try to stay afloat a"
+                                "bit longer...";
+
+
+// If I throw an npc in the wrong spot, it'll still be usefulish.
+const unsigned char* errorText = "Stay afloat, human!";
+
+const unsigned char* introductionText = 
+                                "Hello Human! How did you get  " 
+                                "here?                         "
+                                "                              "
+
+                                "Humans don't belong in the    "
+                                "ocean. You don't have gills!  "
+                                "You just tread water...       "
+                                
+                                "There is a life preserver     "
+                                "in front of me. It may help   "
+                                "you stay afloat longer...     "
+                                
+                                "Stay afloat, human!";
+
+const unsigned char* get_npc_text() {
+    switch (playerOverworldPosition) {
+        case 27:
+            return introductionText;
+
+        default:
+            return errorText;
+    }
+}
+
+void trigger_game_start_text(void) {
+    if (hasGameOvered) {
+        trigger_game_text(startPostGameOverText);
+    } else {
+        trigger_game_text(startFirstPlayText);
+    }
+}
 
 // NOTE: This uses tempChar1 through tempChar3; the caller must not use these.
 void update_player_sprite(void) {
@@ -324,8 +418,10 @@ void handle_player_sprite_collision(void) {
                 break;
             case SPRITE_TYPE_KEY:
                 if (playerlifePreserverCount < MAX_LIFE_PRESERVER_COUNT) {
+                    crash_error("Keys not implemented", "How did you do this?", "???", playerlifePreserverCount);
                     playerlifePreserverCount++;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+                    playerStamina = playerMaxStamina;
 
                     sfx_play(SFX_KEY, SFX_CHANNEL_3);
 
@@ -377,6 +473,7 @@ void handle_player_sprite_collision(void) {
                 break;
             case SPRITE_TYPE_LOCKED_DOOR:
                 // First off, do you have a key? If so, let's just make this go away...
+                crash_error("Locked doors aren't implemented", "How did you do this?", "???", playerlifePreserverCount);
                 if (playerlifePreserverCount > 0) {
                     playerlifePreserverCount--;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
@@ -432,12 +529,7 @@ void handle_player_sprite_collision(void) {
 
                 if (controllerState & PAD_A && !(lastControllerState & PAD_A)) {
                     // Show the text for the player on the first screen
-                    if (playerOverworldPosition == 0) {
-                        trigger_game_text(introductionText);
-                    } else {
-                        // If it's on another screen, show some different text :)
-                        trigger_game_text(movedText);
-                    }
+                    trigger_game_text(get_npc_text());
                 }
                 break;
             case SPRITE_TYPE_PRESERVER:
@@ -462,16 +554,17 @@ void handle_player_sprite_collision(void) {
 
                 if (playerlifePreserverCount < MAX_LIFE_PRESERVER_COUNT) {
                     // Show the text for the player on the first screen
-                    if (playerOverworldPosition == 0) {
-                        trigger_game_text(introductionText);
-                    } else {
-                        // If it's on another screen, show some different text :)
-                        trigger_game_text(movedText);
-                    }
+                    lastSaveXPosition = playerXPosition;
+                    lastSaveYPosition = playerYPosition;
+                    lastSaveOverworldPosition = playerOverworldPosition;
+
+                    trigger_game_text(preserverText[playerlifePreserverCount]);
 
 
                     ++playerlifePreserverCount;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_OFFSCREEN;
+                    playerMaxStamina = (PLAYER_START_MAX_STAMINA + (playerlifePreserverCount<<3));
+                    playerStamina = playerMaxStamina;
 
                     sfx_play(SFX_KEY, SFX_CHANNEL_3);
 
@@ -484,10 +577,10 @@ void handle_player_sprite_collision(void) {
                 break;
 
             case SPRITE_TYPE_DRIFTWOOD:
-                if (playerStamina < PLAYER_MAX_STAMINA) {
+                if (playerStamina < playerMaxStamina) {
                     ++playerStamina;
                 } else {
-                    playerStamina = PLAYER_MAX_STAMINA;
+                    playerStamina = playerMaxStamina;
                 }
 
                 // Calculate position...

@@ -1,5 +1,5 @@
 #include "source/library/bank_helpers.h"
-#define PRG_BANK_PLAYER_SPRITE 2
+#define PRG_BANK_PLAYER_SPRITE 4
 
 // Top-left tile of the sprite of the player facing downward.
 #define PLAYER_SPRITE_TILE_ID 0x00
@@ -36,6 +36,7 @@ ZEROPAGE_EXTERN(int, playerYPosition);
 ZEROPAGE_EXTERN(int, playerXVelocity);
 ZEROPAGE_EXTERN(int, playerYVelocity);
 ZEROPAGE_EXTERN(unsigned char, playerDirection);
+ZEROPAGE_EXTERN(unsigned char, playerMaxStamina);
 
 // Helper macro to convert the player's X and Y position into a position on the map
 #define PLAYER_MAP_POSITION(xPos, yPos) (xPos>>4) + (yPos & 0xf0)
@@ -54,4 +55,5 @@ void handle_player_sprite_collision(void);
 
 
 
-#define PLAYER_MAX_STAMINA 127
+#define PLAYER_START_MAX_STAMINA 64
+void trigger_game_start_text(void);

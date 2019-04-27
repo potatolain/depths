@@ -29,6 +29,11 @@ ZEROPAGE_EXTERN(unsigned char, everyOtherCycle);
 
 ZEROPAGE_EXTERN(unsigned char, waveDirection);
 ZEROPAGE_EXTERN(unsigned char, wavePosition);
+extern unsigned char hasGameOvered;
+extern unsigned int lastSaveXPosition;
+extern unsigned int lastSaveYPosition; 
+extern unsigned char lastSaveOverworldPosition;
+
 
 
 // A few temp variables we'll reuse a lot... be sure not to expect the state of these to stick around

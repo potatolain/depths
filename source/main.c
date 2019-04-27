@@ -30,18 +30,24 @@ void initialize_variables(void) {
     playerOverworldPosition = 27; // Which tile on the overworld to start with; 0-62
     playerHealth = 5; // Player's starting health - how many hearts to show on the HUD.
     playerMaxHealth = 5; // Player's max health - how many hearts to let the player collect before it doesn't count.
-    playerXPosition = (128 << PLAYER_POSITION_SHIFT); // X position on the screen to start (increasing numbers as you go left to right. Just change the number)
+    playerXPosition = (128 << PLAYER_POSITION_SHIFT) - 16; // X position on the screen to start (increasing numbers as you go left to right. Just change the number)
     playerYPosition = (128 << PLAYER_POSITION_SHIFT); // Y position on the screen to start (increasing numbers as you go top to bottom. Just change the number)
     playerDirection = SPRITE_DIRECTION_DOWN; // What direction to have the player face to start.
+
+    lastSaveXPosition = playerXPosition;
+    lastSaveYPosition = playerYPosition;
+    lastSaveOverworldPosition = playerOverworldPosition;
 
     lastPlayerSpriteCollisionId = NO_SPRITE_HIT;
 
     currentWorldId = WORLD_OVERWORLD; // The ID of the world to load.
-    playerStamina = PLAYER_MAX_STAMINA;
+    playerStamina = PLAYER_START_MAX_STAMINA;
+    playerMaxStamina = PLAYER_START_MAX_STAMINA;
 
     //waveDirection = SPRITE_DIRECTION_RIGHT;
     waveDirection = SPRITE_DIRECTION_STATIONARY;
     wavePosition = 0;
+    hasGameOvered = 0;
     
     // Little bit of generic initialization below this point - we need to set
     // The system up to use a different hardware bank for sprites vs backgrounds.
@@ -76,6 +82,13 @@ void main(void) {
 
                 music_stop();
                 fade_out();
+
+                playerStamina = playerMaxStamina;
+                playerOverworldPosition = lastSaveOverworldPosition;
+                playerXPosition = lastSaveXPosition;
+                playerYPosition = lastSaveYPosition;
+
+
                 load_map();
 
                 banked_call(PRG_BANK_MAP_LOGIC, draw_current_map_to_a);
@@ -94,6 +107,10 @@ void main(void) {
                 music_play(SONG_OVERWORLD);
                 fade_in();
                 gameState = GAME_STATE_RUNNING;
+
+                banked_call(PRG_BANK_MAP_SPRITES, update_map_sprites);
+                banked_call(PRG_BANK_PLAYER_SPRITE, update_player_sprite);
+                banked_call(PRG_BANK_PLAYER_SPRITE, trigger_game_start_text);
                 break;
 
             case GAME_STATE_RUNNING:
@@ -148,7 +165,10 @@ void main(void) {
                 fade_in();
                 banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
                 fade_out();
-                reset();
+                hasGameOvered = 1;
+                // reset();
+                // FIXME
+                gameState = GAME_STATE_POST_TITLE;
                 break;
             case GAME_STATE_CREDITS:
                 music_stop();
