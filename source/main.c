@@ -53,10 +53,11 @@ void main(void) {
     gameState = GAME_STATE_SYSTEM_INIT;
 
     while (1) {
-        ++everyOtherCycle;
+        /*++everyOtherCycle;
         if (everyOtherCycle > 3) {
             everyOtherCycle = 0;
-        }
+        }*/
+        everyOtherCycle = !everyOtherCycle;
         switch (gameState) {
             case GAME_STATE_SYSTEM_INIT:
                 initialize_variables();
