@@ -48,11 +48,11 @@ ZEROPAGE_DEF(unsigned char, inSlowStuff);
 const unsigned char* preserverText[] = {
 
 
-                                "This small raft has a bottle  "
-                                "of pills on it.               "
+                                "Huh? This live preserver has a"
+                                "small bottle of pills on it.  "
                                 "                              "
 
-                                "wait... these are MY pills. My"
+                                "wait... these are my pills! My"
                                 "name is on the bottle. Just   "
                                 "as my psychiatrist prescribed."
 
@@ -108,7 +108,7 @@ const unsigned char* preserverText[] = {
                                 "mine. I want to make a game   "
                                 "that changes someone's life.  "
 
-                                "Nothing I've made has done    "
+                                "Nothing I have made has done  "
                                 "that yet. I have to stay      "
                                 "afloat to keep trying!        "
 
@@ -142,20 +142,6 @@ const unsigned char* preserverText[] = {
                                 "                              "
                                 "I will stay afloat!           "
                                 
-                                ,
-
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
-
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
-
-                                "Hey, you put me on another    "
-                                "screen! Cool!",
-
-                                "Hey, you put me on another    "
-                                "screen! Cool!"
-
 };
 
 const unsigned char* startFirstPlayText = 
