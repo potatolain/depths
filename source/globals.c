@@ -25,6 +25,8 @@ ZEROPAGE_DEF(unsigned char, lastControllerState);
 ZEROPAGE_DEF(unsigned char, waveDirection);
 ZEROPAGE_DEF(unsigned char, wavePosition);
 
+ZEROPAGE_DEF(unsigned char, chrBankTiles);
+
 unsigned char hasGameOvered;
 
 unsigned char lastSaveOverworldPosition;

@@ -49,6 +49,8 @@ void initialize_variables(void) {
     waveDirection = SPRITE_DIRECTION_STATIONARY;
     wavePosition = 0;
     hasGameOvered = 0;
+
+    chrBankTiles = CHR_BANK_TILES;
     
     // Little bit of generic initialization below this point - we need to set
     // The system up to use a different hardware bank for sprites vs backgrounds.
@@ -120,6 +122,11 @@ void main(void) {
                 banked_call(PRG_BANK_MAP_SPRITES, update_map_sprites);
                 banked_call(PRG_BANK_PLAYER_SPRITE, handle_player_movement);
                 banked_call(PRG_BANK_PLAYER_SPRITE, update_player_sprite);
+
+                chrBankTiles = 3 + ((frameCount >> 6) & 0x01);
+
+                set_chr_bank_0(chrBankTiles);
+
                 break;
             case GAME_STATE_SCREEN_SCROLL:
                 // Hide all non-player sprites in play, so we have an empty screen to add new ones to

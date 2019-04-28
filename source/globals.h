@@ -34,6 +34,8 @@ extern unsigned int lastSaveXPosition;
 extern unsigned int lastSaveYPosition; 
 extern unsigned char lastSaveOverworldPosition;
 
+ZEROPAGE_EXTERN(unsigned char, chrBankTiles);
+
 
 
 // A few temp variables we'll reuse a lot... be sure not to expect the state of these to stick around
