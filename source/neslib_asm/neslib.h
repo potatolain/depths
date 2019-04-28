@@ -76,6 +76,8 @@ void __fastcall__ ppu_on_spr(void);
 
 //set PPU_MASK directly
 
+unsigned char __fastcall__ get_ppu_mask(void);
+
 void __fastcall__ ppu_mask(unsigned char mask);
 
 //get current video system, 0 for PAL, not 0 for NTSC

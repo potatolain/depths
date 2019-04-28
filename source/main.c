@@ -49,6 +49,7 @@ void initialize_variables(void) {
     waveDirection = SPRITE_DIRECTION_STATIONARY;
     wavePosition = 0;
     hasGameOvered = 0;
+    isStorming = 0;
 
     chrBankTiles = CHR_BANK_TILES;
     
@@ -126,14 +127,47 @@ void main(void) {
                 chrBankTiles = 3 + ((frameCount >> 6) & 0x01);
 
                 set_chr_bank_0(chrBankTiles);
+                tempChar1 = get_ppu_mask();
+
+                if (isStorming) {
+                    tempChar1 |= 0xe0;
+
+                    tempChar2 = frameCount >> 3; // 0-31
+                    tempChar3 = frameCount >> 2; // 0-63
+                    if (tempChar2 < 4) {
+                        if (tempChar2 == 0) {
+                            sfx_play(SFX_BOOM, SFX_CHANNEL_1);
+                        }
+                        if (tempChar2 == 2) {
+                            tempChar2 = 1;
+                        }
+                        if (tempChar2 == 3) {
+                            tempChar2 = 0;
+                        }
+                        pal_bright(5+tempChar2);
+
+                    } else {
+                        pal_bright(3);
+                    }
+                } else {
+                    tempChar1 &= 0x1f;
+                    pal_bright(4);
+                    
+                }
+                ppu_mask(tempChar1);
 
                 break;
             case GAME_STATE_SCREEN_SCROLL:
+
                 // Hide all non-player sprites in play, so we have an empty screen to add new ones to
                 oam_hide_rest(FIRST_ENEMY_SPRITE_OAM_INDEX);
 
                 // If you don't like the screen scrolling transition, you can replace the transition with `do_fade_screen_transition`
                 banked_call(PRG_BANK_MAP_LOGIC, do_scroll_screen_transition);
+                if (playerOverworldPosition == 18) {
+                    isStorming = 0;
+                }
+
                 break;
             case GAME_STATE_SHOWING_TEXT:
                 banked_call(PRG_BANK_GAME_TEXT, draw_game_text);

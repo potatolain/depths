@@ -11,6 +11,7 @@
 ; - Added reset method to reset system to initial state
 ; - Added a simple wait for sprite0 hit, to allow us to do C things.
 ; - Added a handler to nmi to allow switching chr banks at the very start of nmi (mixed with functions in bank_helpers)
+; - Added a way to get ppu mask
 
 ;modified to work with the FamiTracker music driver
 
@@ -30,7 +31,7 @@
 	.export _set_vram_update,_flush_vram_update
 	.export _memcpy,_memfill,_delay
 
-	.export _split_y,_reset,_wait_for_sprite0_hit
+	.export _split_y,_reset,_wait_for_sprite0_hit, _get_ppu_mask
 
 ;NMI handler
 
@@ -667,6 +668,10 @@ _ppu_on_spr:
 _ppu_mask:
 
 	sta <PPU_MASK_VAR
+	rts
+
+_get_ppu_mask:
+	lda <PPU_MASK_VAR
 	rts
 
 

@@ -68,6 +68,7 @@
 #define SFX_CURRENTS 9
 #define SFX_CLICKY 10
 #define SFX_BOOP 11
+#define SFX_BOOM 12
 
 // Constants for sfx channels. Completely unnecessary but it's easier to read
 #define SFX_CHANNEL_1 0

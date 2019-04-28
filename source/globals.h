@@ -36,6 +36,8 @@ extern unsigned char lastSaveOverworldPosition;
 
 ZEROPAGE_EXTERN(unsigned char, chrBankTiles);
 
+ZEROPAGE_EXTERN(unsigned char, isStorming);
+
 
 
 // A few temp variables we'll reuse a lot... be sure not to expect the state of these to stick around

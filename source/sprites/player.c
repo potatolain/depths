@@ -341,6 +341,9 @@ const unsigned char* lookADriftwood =
                                 
                                 "Stay afloat, human!"; 
 
+const unsigned char* stormBrew = 
+                                "A storm seems to have rolled  "
+                                "in! I'd better be careful!";
 
 
 
@@ -532,7 +535,11 @@ void handle_player_movement(void) {
             sfx_play(SFX_CURRENTS, SFX_CHANNEL_4);
         }
         maxVelocity >>= 2;
+        if (isStorming) {
+            maxVelocity >>= 1;
+        }
     }
+    
 
     if (playerControlsLockTime) {
         // If your controls are locked, just tick down the timer until they stop being locked. Don't read player input.
@@ -977,10 +984,34 @@ void handle_player_sprite_collision(void) {
                     playerControlsLockTime = 0;
                 }
 
+                if (!isStorming && playerOverworldPosition == 41) {
+                    isStorming = 1;
+                    sfx_play(SFX_BOOM, SFX_CHANNEL_1);
+                    
+                    delay(2);
+                    pal_bright(5);
+                    delay(2);
+                    pal_bright(6);
+                    delay(2);
+                    pal_bright(7);
+                    delay(4);
+                    pal_bright(6);
+                    delay(2);
+                    pal_bright(5);
+                    delay(2);
+                    pal_bright(4);
+
+                    trigger_game_text(stormBrew);
+
+                    controllerState |= PAD_A;
+                    lastControllerState |= PAD_A;
+                }
+
                 if (spriteType == SPRITE_TYPE_DRIFTWOOD_NPC && controllerState & PAD_A && !(lastControllerState & PAD_A)) {
                     // Show the text for the player on the first screen
                     trigger_game_text(get_wood_text());
                 }
+
 
 
                 break;
