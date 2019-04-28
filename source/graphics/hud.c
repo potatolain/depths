@@ -78,6 +78,17 @@ void update_hud(void) {
 
 
 
+    tempChar1 = 0x04;
+    if (playerStamina < 17) {
+        tempChar1 = 0x06;
+    } else if (playerStamina < 33) {
+        tempChar1 = 0x16;
+    } else if (playerStamina < 49) {
+        tempChar1 = 0x26;
+    }
+    screenBuffer[i++] = MSB(0x3f0d);
+    screenBuffer[i++] = LSB(0x3f0d);
+    screenBuffer[i++] = tempChar1;
     screenBuffer[i++] = NT_UPD_EOF;
     set_vram_update(screenBuffer);
 
