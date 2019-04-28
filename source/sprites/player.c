@@ -80,8 +80,8 @@ const unsigned char* preserverText[] = {
                                 ,
 
 
-                                "Did... did this life preserver"
-                                "just meow at me?              "
+                                "Did... did this life raft just"
+                                "meow at me?                   "
                                 "                              "
 
                                 "It seems to have a face. It   "
@@ -92,9 +92,6 @@ const unsigned char* preserverText[] = {
                                 "He can't take care of himself!"
                                 "                              "
                                 
-                                "I'll take this raft with me.  "
-                                "                              "
-                                "                              "
                                 "Another life preserver in my  "
                                 "collection always helps.      "
                                 "                              "
@@ -404,8 +401,8 @@ const unsigned char* woodGame =
                                 "                              "
 
                                 "This reminds me that I still  "
-                                "want to find out what happens "
-                                "to Chloe Price.               "
+                                "need to find out what happens "
+                                "to Chloe Price in my game.    "
 
                                 "One more reason to keep       "
                                 "treading water...";
@@ -440,12 +437,12 @@ const unsigned char* woodMusic =
                                 "like a musical note on it...  "
                                 "                              "
 
-                                "There are so many interesting "
-                                "albums coming out this year..."
+                                "Tom Shear will probably       "
+                                "a new album this year.        "
                                 "                              "
 
                                 "It would be a shame to never  "
-                                "hear them. I guess I'll keep  "
+                                "hear it. I guess I'll keep    "
                                 "treading water for now...";
 
 const unsigned char* woodPeople = 
@@ -1005,6 +1002,8 @@ void handle_player_sprite_collision(void) {
 
                     controllerState |= PAD_A;
                     lastControllerState |= PAD_A;
+
+                    music_play(SONG_SADERWORLD);
                 }
 
                 if (spriteType == SPRITE_TYPE_DRIFTWOOD_NPC && controllerState & PAD_A && !(lastControllerState & PAD_A)) {

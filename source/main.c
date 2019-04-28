@@ -164,8 +164,9 @@ void main(void) {
 
                 // If you don't like the screen scrolling transition, you can replace the transition with `do_fade_screen_transition`
                 banked_call(PRG_BANK_MAP_LOGIC, do_scroll_screen_transition);
-                if (playerOverworldPosition == 18) {
+                if (isStorming && playerOverworldPosition == 18) {
                     isStorming = 0;
+                    music_play(SONG_OVERWORLD);
                 }
 
                 break;
