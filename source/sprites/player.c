@@ -638,7 +638,7 @@ void handle_player_movement(void) {
         }
     }
 
-    if (lastPlayerSpriteCollisionId != DRIFTWOOD_ID && (frameCount & 0x07) == 0x07) {
+    if (!isRecovery && (frameCount & 0x07) == 0x07) {
         playerStamina--;
         if (playerStamina == 48) {
             sfx_play(SFX_DROWN1, SFX_CHANNEL_4);
@@ -768,6 +768,7 @@ void test_player_tile_collision(void) {
 ZEROPAGE_DEF(unsigned char, spriteType);
 
 void handle_player_sprite_collision(void) {
+    isRecovery = 0;
     // We store the last sprite hit when we update the sprites in `map_sprites.c`, so here all we have to do is react to it.
     if (lastPlayerSpriteCollisionId != NO_SPRITE_HIT) {
         currentMapSpriteIndex = lastPlayerSpriteCollisionId<<MAP_SPRITE_DATA_SHIFT;
@@ -882,6 +883,7 @@ void handle_player_sprite_collision(void) {
                 gameState = GAME_STATE_CREDITS;
                 break;
             case SPRITE_TYPE_NPC:
+                isRecovery = 1;
                 // Okay, we collided with this NPC before we calculated the player's movement. After being moved, does the 
                 // new player position also collide? If so, stop it. Else, let it go.
 
@@ -954,6 +956,7 @@ void handle_player_sprite_collision(void) {
 
             case SPRITE_TYPE_DRIFTWOOD:
             case SPRITE_TYPE_DRIFTWOOD_NPC:
+                isRecovery = 1;
                 if (playerStamina < playerMaxStamina) {
                     ++playerStamina;
                 } else {

@@ -28,6 +28,7 @@ ZEROPAGE_DEF(unsigned char, wavePosition);
 ZEROPAGE_DEF(unsigned char, chrBankTiles);
 
 ZEROPAGE_DEF(unsigned char, isStorming);
+ZEROPAGE_DEF(unsigned char, isRecovery);
 
 unsigned char hasGameOvered;
 
