@@ -13,21 +13,21 @@ CODE_BANK(PRG_BANK_CREDITS_MENU);
 #include "graphics/end2.h"
 #include "graphics/end3.h"
 
-#include "graphics/postend1.h"
-#include "graphics/postend2.h"
-#include "graphics/postend3.h"
-#include "graphics/postend4.h"
-#include "graphics/postend5.h"
+#include "graphics/postv2_1.h"
+#include "graphics/postv2_2.h"
+#include "graphics/postv2_3.h"
+#include "graphics/postv2_4.h"
+#include "graphics/postv2_5.h"
 
 const unsigned char* endPiece[] = {
     end1,
     end2,
-    end3,
-    postend1,
-    postend2,
-    postend3,
-    postend4,
-    postend5
+    //end3,
+    postv2_1,
+    postv2_2,
+    postv2_3,
+    postv2_4,
+    postv2_5
 };
 
 

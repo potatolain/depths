@@ -187,7 +187,7 @@ void main(void) {
                 bank_push(PRG_BANK_CREDITS_MENU);
                 // NOTE: Using `j` here is kinda iffy at best. I don't think it's used but if stuff breaks, this could be why
 
-                for (j = 0; j != 3; ++j) {
+                for (j = 0; j != 2; ++j) {
                     draw_win_screen(j);
                     fade_in();
                     banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
@@ -200,7 +200,7 @@ void main(void) {
                 banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
                 fade_out();
 
-                for (j = 3; j != 8; ++j) {
+                for (j = 2; j != 7; ++j) {
                     draw_win_screen(j);
                     fade_in();
                     banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
