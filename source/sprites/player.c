@@ -63,9 +63,9 @@ const unsigned char* preserverText[] = {
                                 ,
 
 
-                                "Touching this, memories of a  "
-                                "close friend come flooding    "
-                                "back.                         "
+                                "Touching this raft, I feel    "
+                                "memories of a close friend    "
+                                "come flooding back.           "
 
                                 "I have to press on for the    "
                                 "them. They wouldn't want me to"
