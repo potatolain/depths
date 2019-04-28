@@ -42,6 +42,9 @@ ZEROPAGE_DEF(unsigned char, inSlowStuff);
 #define collisionTempXInt tempInt3
 #define collisionTempYInt tempInt4
 
+#define currentMapSpriteIndex tempChar1
+
+
 //                                "                              "
 
 
@@ -323,6 +326,22 @@ const unsigned char* nearlyThere =
                                 "Farewell!";
 
 
+const unsigned char* lookADriftwood = 
+                                "Did you see the weird pattern "
+                                "on that driftwood? It might   "
+                                "have a story behind it!       "
+
+                                "(Press the A button in front  "
+                                "of it)                        "
+                                "                              "
+
+                                "These can help you stay       "
+                                "afloat. Every little thing    "
+                                "helps.                        "
+                                
+                                "Stay afloat, human!"; 
+
+
 
 
 const unsigned char* get_npc_text() {
@@ -342,6 +361,9 @@ const unsigned char* get_npc_text() {
 
         case 27:
             return introductionText;
+
+        case 28:
+            return lookADriftwood;
 
         case 29:
             return stormySeas;
@@ -365,6 +387,94 @@ const unsigned char* get_npc_text() {
 
         default:
             return errorText;
+    }
+}
+
+const unsigned char* woodError = 
+                                "The design on this driftwood  "
+                                "reminds me of something, but I"
+                                "can't remember what...";
+
+const unsigned char* woodGame = 
+                                "This driftwood has a pattern  "
+                                "like a controller on it...    "
+                                "                              "
+
+                                "This reminds me that I still  "
+                                "want to find out what happens "
+                                "to Chloe Price.               "
+
+                                "One more reason to keep       "
+                                "treading water...";
+
+const unsigned char* woodBook = 
+                                "This driftwood has a pattern  "
+                                "like a book on it...          "
+                                "                              "
+
+                                "I have so many books piled up "
+                                "to read...                    "
+                                "                              "
+
+                                "I'll never get to them if I   "
+                                "get pulled under today.       "
+                                "                              "
+
+                                "I guess I'll have to stay     "
+                                "afloat...";
+
+const unsigned char* woodTv = 
+                                "This driftwood has a pattern  "
+                                "like a TV on it...            "
+                                "                              "
+
+                                "I can't drift under without   "
+                                "finding out who survives the  "
+                                "end of that show!";
+
+const unsigned char* woodMusic = 
+                                "This driftwood has a pattern  "
+                                "like a musical note on it...  "
+                                "                              "
+
+                                "There are so many interesting "
+                                "albums coming out this year..."
+                                "                              "
+
+                                "It would be a shame to never  "
+                                "hear them. I guess I'll keep  "
+                                "treading water for now...";
+
+const unsigned char* woodPeople = 
+                                "This driftwood has a pattern  "
+                                "like a face on it...          "
+                                "                              "
+
+                                "It sort of reminds me of my   "
+                                "crush. I still haven't asked  "
+                                "them out.                     "
+
+                                "I guess I should find out how "
+                                "they feel about me. If I keep "
+                                "floating, maybe I can...";
+
+//"                              ";
+const unsigned char* get_wood_text() {
+
+    switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
+        case 0xa0:
+            return woodBook;
+        case 0xa2:
+            return woodGame;
+        case 0xa4:
+            return woodMusic;
+        case 0xa6:
+            return woodPeople;
+        case 0xa8:
+            return woodTv;
+
+        default: 
+            return woodError;
     }
 }
 
@@ -640,12 +750,14 @@ void test_player_tile_collision(void) {
 
 }
 
-#define currentMapSpriteIndex tempChar1
+ZEROPAGE_DEF(unsigned char, spriteType);
+
 void handle_player_sprite_collision(void) {
     // We store the last sprite hit when we update the sprites in `map_sprites.c`, so here all we have to do is react to it.
     if (lastPlayerSpriteCollisionId != NO_SPRITE_HIT) {
         currentMapSpriteIndex = lastPlayerSpriteCollisionId<<MAP_SPRITE_DATA_SHIFT;
-        switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE]) {
+        spriteType = currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE];
+        switch (spriteType) {
             case SPRITE_TYPE_HEALTH:
                 // This if statement ensures that we don't remove hearts if you don't need them yet.
                 if (playerHealth < playerMaxHealth) {
@@ -826,6 +938,7 @@ void handle_player_sprite_collision(void) {
                 break;
 
             case SPRITE_TYPE_DRIFTWOOD:
+            case SPRITE_TYPE_DRIFTWOOD_NPC:
                 if (playerStamina < playerMaxStamina) {
                     ++playerStamina;
                 } else {
@@ -847,6 +960,11 @@ void handle_player_sprite_collision(void) {
                     playerXPosition -= playerXVelocity;
                     playerYPosition -= playerYVelocity;
                     playerControlsLockTime = 0;
+                }
+
+                if (spriteType == SPRITE_TYPE_DRIFTWOOD_NPC && controllerState & PAD_A && !(lastControllerState & PAD_A)) {
+                    // Show the text for the player on the first screen
+                    trigger_game_text(get_wood_text());
                 }
 
 
