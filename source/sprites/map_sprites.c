@@ -33,12 +33,14 @@ CODE_BANK(PRG_BANK_MAP_SPRITES);
 
 
 ZEROPAGE_DEF(unsigned char, lastPlayerSpriteCollisionId);
+ZEROPAGE_DEF(unsigned char, lastTurnLastPlayerSpriteCollisionId);
 
 // Forward definition of this method; code is at the bottom of this file. Ignore this for now!
 void do_sprite_movement_with_collision(void);
 
 // Updates all available map sprites (with movement every other frame)
 void update_map_sprites(void) {
+    lastTurnLastPlayerSpriteCollisionId = lastPlayerSpriteCollisionId;
     lastPlayerSpriteCollisionId = NO_SPRITE_HIT;
 
     if (wavePosition == 0 && waveDirection != SPRITE_DIRECTION_STATIONARY) {

@@ -161,8 +161,8 @@ const unsigned char* startPostGameOverText =
                                 "                              "
 
                                 "I can't let myself get dragged"
-                                "to the bottom like that! I    "
-                                "have to keep living!          "
+                                "to the bottom like that!      "
+                                "                              "
 
                                 "I need to try to stay afloat a"
                                 "bit longer...";
@@ -528,6 +528,9 @@ void handle_player_movement(void) {
     }
 
     if (inSlowStuff) {
+        if (!(frameCount & 0x0f)) {
+            sfx_play(SFX_CURRENTS, SFX_CHANNEL_4);
+        }
         maxVelocity >>= 2;
     }
 
@@ -633,6 +636,14 @@ void handle_player_movement(void) {
 
     if (lastPlayerSpriteCollisionId != DRIFTWOOD_ID && (frameCount & 0x07) == 0x07) {
         playerStamina--;
+        if (playerStamina == 48) {
+            sfx_play(SFX_DROWN1, SFX_CHANNEL_4);
+        } else if (playerStamina == 32) {
+            sfx_play(SFX_DROWN2, SFX_CHANNEL_2);
+        } else if (playerStamina == 16) {
+            sfx_play(SFX_DROWN3, SFX_CHANNEL_1);
+        }
+
         if (playerStamina == 0 || playerStamina > 240) {
             gameState = GAME_STATE_GAME_OVER;
             music_stop();
@@ -943,6 +954,10 @@ void handle_player_sprite_collision(void) {
                     ++playerStamina;
                 } else {
                     playerStamina = playerMaxStamina;
+                }
+
+                if (lastPlayerSpriteCollisionId != lastTurnLastPlayerSpriteCollisionId) {
+                    sfx_play(SFX_REFILL, SFX_CHANNEL_2);
                 }
 
                 // Calculate position...

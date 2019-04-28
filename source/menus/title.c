@@ -28,6 +28,7 @@ void draw_title_screen(void) {
 
 	vram_adr(NAMETABLE_A);
 	vram_unrle(prestart);
+	sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
     
 	ppu_on_all();
 	gameState = GAME_STATE_TITLE_INPUT;
@@ -55,12 +56,14 @@ void draw_title_screen_real(void) {
 
 	put_str(NTADR_A(10, 16), "Press Start!");
 	ppu_on_all();
+	music_play(SONG_TITLE);
 	fade_in();
 }
 
 void draw_title1(void) {
 	fade_out();
     ppu_off();
+
 
 	vram_adr(NAMETABLE_A);
 	vram_unrle(title_1);
@@ -80,11 +83,15 @@ void handle_title_input(void) {
 
 	if (titlePhase == 1 && pad_trigger(0) & PAD_START) {
 		++titlePhase;
+		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
+
 		draw_title1();
 		return;
 	}
 	if (titlePhase == 2 && pad_trigger(0) & PAD_START) {
 		gameState = GAME_STATE_POST_TITLE;
+		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
+
 		return;
 	}
 }

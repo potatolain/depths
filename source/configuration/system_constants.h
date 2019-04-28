@@ -51,6 +51,7 @@
 // Constants for songs we play in the game
 #define SONG_TITLE 0
 #define SONG_OVERWORLD 1
+#define SONG_WIN 2
 
 // Constants for sound effects we play in the game
 #define SFX_HURT 0
@@ -58,6 +59,15 @@
 #define SFX_KEY 2
 #define SFX_GAMEOVER 3
 #define SFX_WIN 4
+
+
+#define SFX_DROWN1 5
+#define SFX_DROWN2 6
+#define SFX_DROWN3 7
+#define SFX_REFILL 8
+#define SFX_CURRENTS 9
+#define SFX_CLICKY 10
+#define SFX_BOOP 11
 
 // Constants for sfx channels. Completely unnecessary but it's easier to read
 #define SFX_CHANNEL_1 0

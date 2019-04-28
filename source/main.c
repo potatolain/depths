@@ -39,6 +39,7 @@ void initialize_variables(void) {
     lastSaveOverworldPosition = playerOverworldPosition;
 
     lastPlayerSpriteCollisionId = NO_SPRITE_HIT;
+    lastTurnLastPlayerSpriteCollisionId = NO_SPRITE_HIT;
 
     currentWorldId = WORLD_OVERWORLD; // The ID of the world to load.
     playerStamina = PLAYER_START_MAX_STAMINA;
@@ -72,7 +73,6 @@ void main(void) {
 
             case GAME_STATE_TITLE_DRAW:
                 banked_call(PRG_BANK_TITLE, draw_title_screen);
-                music_play(SONG_TITLE);
                 fade_in();
                 break;
             case GAME_STATE_TITLE_INPUT:
@@ -170,8 +170,9 @@ void main(void) {
                 gameState = GAME_STATE_POST_TITLE;
                 break;
             case GAME_STATE_CREDITS:
-                music_stop();
+                //music_stop();
                 sfx_play(SFX_WIN, SFX_CHANNEL_1);
+                music_play(SONG_WIN);
 
                 fade_out();
                 // Draw the "you won" screen

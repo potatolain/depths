@@ -34,6 +34,7 @@ CODE_BANK(PRG_BANK_GAME_TEXT);
 void draw_game_text(void) {
     // Creating a local variable on the stack for the HUD buffer here. It won't be fast, but we don't really need it to be.
     unsigned char buffer[132];
+    sfx_play(SFX_BOOP, SFX_CHANNEL_4);
 
     // Make sure we don't update the HUD at all while doing this.
     set_vram_update(NULL);
@@ -138,6 +139,7 @@ void draw_game_text(void) {
         // Each time we loop, check if A has been pressed. Set this variable if it is.
         if (pad_trigger(0) & PAD_A) {
             hasInput = TRUE;
+            sfx_play(SFX_BOOP, SFX_CHANNEL_4);
         }
 
         // Draw the "more text" arrow if there is more text to go, _and_ we're not on an "off" frame
