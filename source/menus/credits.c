@@ -75,11 +75,11 @@ void draw_credits_screen(void) {
     // put_str(NTADR_A(2, 16), "Artwork");
     // put_str(NTADR_A(4, 18), "Refresh Games (OpenGameArt)");
 
-    put_str(NTADR_A(8, 21), "Copyright");
-    put_str(NTADR_A(18, 21), currentYear);
+    put_str(NTADR_A(9, 21), "Copyright");
+    put_str(NTADR_A(19, 21), currentYear);
 
     put_str(NTADR_A(7, 23), "Christopher Parker");
-    put_str(NTADR_A(8, 24), "aka @cppchriscpp");
+    put_str(NTADR_A(8, 25), "aka @cppchriscpp");
 
 
     // Hide all existing sprites

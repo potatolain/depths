@@ -56,7 +56,7 @@ const unsigned char* preserverText[] = {
                                 "name is on the bottle. Just   "
                                 "as my psychiatrist prescribed."
 
-                                "Weird... as I take them, I    "
+                                "Weird... as I collect them, I "
                                 "feel I can stay afloat just a "
                                 "little longer."
                                 
@@ -82,23 +82,26 @@ const unsigned char* preserverText[] = {
                                 "                              "
 
                                 "It seems to have a face. It   "
-                                "reminds me a lot of my cat.   "
-                                "                              "
+                                "looks just like my cat. He's  "
+                                "waiting for me at home.       "
 
                                 "I need to stay afloat for him."
-                                "                              "
+                                "He can't take care of himself!"
                                 "                              "
                                 
-                                "I'll take this with me.       "
+                                "I'll take this raft with me.  "
+                                "                              "
+                                "                              "
                                 "Another life preserver in my  "
                                 "collection always helps.      "
+                                "                              "
                                 
                                 "Come on Maxwell <3"
                                 
                                 ,
 
                                 "This thing has a game         "
-                                "controller pattern on it...   "
+                                "cartridge pattern on it...    "
                                 "                              "
                                 
                                 "It reminds me of a goal of    "
@@ -110,7 +113,7 @@ const unsigned char* preserverText[] = {
                                 "afloat to keep trying!        "
 
                                 "Remembering this, I find my   "
-                                "will to carry on increasing   "
+                                "will to carry on increasing.  "
                                 
                                 ,
 
@@ -127,12 +130,17 @@ const unsigned char* preserverText[] = {
                                 "                              "
 
                                 "I have to stay afloat for her."
+                                "                              "
+                                "                              "
+
                                 "I must.                       "
+                                "                              "
                                 "                              "
 
                                 "This little reminder gave me  "
-                                "just a bit more strength. I   "
-                                "will stay afloat!             "
+                                "just a bit more strength.     "
+                                "                              "
+                                "I will stay afloat!           "
                                 
                                 ,
 
@@ -189,10 +197,185 @@ const unsigned char* introductionText =
                                 
                                 "Stay afloat, human!";
 
+const unsigned char* wetText = 
+                                "Human! The water is very deep "
+                                "here. Please be sure to rest  "
+                                "before you go too far.        "
+
+                                "That driftwood behind you is  "
+                                "safe to use.                  "
+                                "                              "
+                                "Stay afloat, human!";
+
+const unsigned char* bufText = 
+                                "The rocks ahead form a maze,  "
+                                "human! It is very dangerous!  "
+                                "                              "
+
+                                "Follow the bottom path, then  "
+                                "go down at the first chance   "
+                                "you get!                      "
+                                
+                                "Please keep treading water,   "
+                                "human.";
+
+const unsigned char* lostText = 
+                                "What are you doing out here,  "
+                                "human? Didn't you hear my     "
+                                "warning?                      "
+
+                                "This path goes nowhere, and   "
+                                "is extremely dangerous. You   "
+                                "nearly drowned!               "
+
+                                "I followed you after seeing   "
+                                "you make the wrong turn. I    "
+                                "am sorry I can't help further."
+
+                                "This path meets up with the   "
+                                "other one below. Just keep    "
+                                "going. Be careful!";
+
+const unsigned char* stormySeas = 
+                                "The sea in front of you is    "
+                                "churning a lot! You'll have   "
+                                "to fight the current to move. "
+
+                                "Be careful, human! Don't let  "
+                                "it pull you down!";
+const unsigned char* nothingHere =
+                                "Sorry, human. There is nothing"
+                                "here but this driftwood...    "
+                                "                              "
+                                
+                                "You're really getting         "
+                                "resillient. I didn't think you"
+                                "could even make it here.      "
+                                
+                                "You'll have to turn around    "
+                                "now. Try to get back to more  "
+                                "driftwood. It's a long swim.  "
+
+                                "Stay hopeful, human!";
+
+const unsigned char* toTheLeftToTheLeft =  // sorry
+                                "Human! There is another raft  "
+                                "just to the left of here. You "
+                                "look like you need it!        "
+
+                                "You are getting adept at      "
+                                "staying afloat. Don't give up!"
+                                "                              "
+
+                                "Things are going to get tough,"
+                                "but I think you are tougher.  "
+                                "                              "
+
+                                "Stay afloat, human!";
+
+const unsigned char* aGameEh = 
+                                "I saw a smile as you saw that "
+                                "raft. Does the symbol mean    "
+                                "something special to you?     "
+
+                                "I see. Human, I hope you one  "
+                                "day make that happen. But     "
+                                "to do it,you must stay afloat!"
+
+                                "You can do it, human!";
+
+const unsigned char* veryChoppySeas =
+                                "Human! The seas ahead are even"
+                                "more choppy than before!      "
+                                "                              "
+                                
+                                "It's scaring even me. And I   "
+                                "live in these seas.           "
+                                "                              "
+
+                                "Please, try to stay afloat... "
+                                "You've come this far!         "; 
+
+const unsigned char* gettingClose =
+                                "Human, there is one last      "
+                                "life preserver ahead. Grab it!"
+                                "                              "
+
+                                "Stay alive, human!";
+
+
+const unsigned char* straightShot = 
+                                "Human, your stamina is higher "
+                                "than I thought possible. You  "
+                                "just might be able to make it "
+
+                                "across this channel.          "
+                                "                              "
+                                "                              "
+
+                                "Just swim straight there, and "
+                                "avoid the current! It's a long"
+                                "swim, but can do it.          "
+
+                                "I believe in you, human!";
+
+const unsigned char* nearlyThere =
+                                "You made it!                  "
+                                "                              "
+                                "                              "
+                                
+                                "Human, that is the furthest I "
+                                "have seen person swim without "
+                                "a break. You should be proud. "
+                                
+                                "Swim down from here. There is "
+                                "a huge raft you may be able   "
+                                "to rest on.                   "
+
+                                "Keep floating, human.         "
+                                "                              "
+                                "Farewell!";
+
+
+
+
 const unsigned char* get_npc_text() {
     switch (playerOverworldPosition) {
+
+        case 11:
+            return bufText;
+
+        case 14:
+            return lostText;
+
+        case 18:
+            return nearlyThere;
+
+        case 20:
+            return wetText;
+
         case 27:
             return introductionText;
+
+        case 29:
+            return stormySeas;
+
+        case 34:
+            return aGameEh;
+        case 35:
+            return toTheLeftToTheLeft;
+
+        case 53:
+            return nothingHere;
+
+        case 54:
+            return veryChoppySeas;
+
+        case 56:
+            return straightShot;
+
+        case 57:
+            return gettingClose;
 
         default:
             return errorText;
