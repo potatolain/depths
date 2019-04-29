@@ -38,6 +38,7 @@ ZEROPAGE_EXTERN(unsigned char, chrBankTiles);
 
 ZEROPAGE_EXTERN(unsigned char, isStorming);
 ZEROPAGE_EXTERN(unsigned char, isRecovery);
+ZEROPAGE_EXTERN(unsigned char, isEasyMode);
 
 
 

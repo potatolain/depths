@@ -50,6 +50,7 @@ void initialize_variables(void) {
     wavePosition = 0;
     hasGameOvered = 0;
     isStorming = 0;
+    isEasyMode = 0;
 
     chrBankTiles = CHR_BANK_TILES;
     

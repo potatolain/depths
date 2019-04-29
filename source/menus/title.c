@@ -84,6 +84,7 @@ void handle_title_input(void) {
 	if (titlePhase == 1 && pad_trigger(0) & PAD_START) {
 		++titlePhase;
 		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
+		music_play(SONG_WIN); // ocean
 
 		draw_title1();
 		return;
