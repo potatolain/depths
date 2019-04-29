@@ -110,6 +110,12 @@ void main(void) {
                 music_play(SONG_OVERWORLD);
                 fade_in();
                 gameState = GAME_STATE_RUNNING;
+                if (isStorming) {
+                    pal_bright(3);
+                } else {
+                    pal_bright(4);
+                }
+
 
                 banked_call(PRG_BANK_MAP_SPRITES, update_map_sprites);
                 banked_call(PRG_BANK_PLAYER_SPRITE, update_player_sprite);

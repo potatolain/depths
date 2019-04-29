@@ -407,6 +407,18 @@ const unsigned char* woodGame =
                                 "One more reason to keep       "
                                 "treading water...";
 
+const unsigned char* woodGame2 = 
+                                "This driftwood has a pattern  "
+                                "like a controller on it...    "
+                                "                              "
+                                
+                                "It reminds me that I still    "
+                                "never beat Final Fantasy 9. I "
+                                "want to do that still.        "
+                                
+                                "I guess I can keep floating to"
+                                "one day do that.";
+
 const unsigned char* woodBook = 
                                 "This driftwood has a pattern  "
                                 "like a book on it...          "
@@ -423,6 +435,22 @@ const unsigned char* woodBook =
                                 "I guess I'll have to stay     "
                                 "afloat...";
 
+const unsigned char* woodBook2 =
+                                "This driftwood has a pattern  "
+                                "like a book on it...          "
+                                "                              "
+
+                                "Touching this reminds me that "
+                                "I still haven't read \"What we "
+                                "Did Before\" yet.              "
+
+                                "I need to find time for that! "
+                                "                              "
+                                "                              "
+
+                                "I Just have to keep treading  "
+                                "water...";
+
 const unsigned char* woodTv = 
                                 "This driftwood has a pattern  "
                                 "like a TV on it...            "
@@ -432,18 +460,47 @@ const unsigned char* woodTv =
                                 "finding out who survives the  "
                                 "end of that show!";
 
+const unsigned char* woodTv2 = 
+                                "This driftwood has a pattern  "
+                                "like a TV on it...            "
+                                "                              "
+                                
+                                "It reminds me, I still haven't"
+                                "caught up on Dr. Who. I still "
+                                "need to see how Jodie         "
+                                
+                                "Whittaker portrays the doctor "
+                                "                              "
+                                "                              "
+
+                                "Maybe I'll watch it soon. I'll"
+                                "have to float on to do it.";
+
 const unsigned char* woodMusic = 
                                 "This driftwood has a pattern  "
                                 "like a musical note on it...  "
                                 "                              "
 
+                                "Touching this reminds me that "
                                 "Tom Shear will probably       "
-                                "a new album this year.        "
-                                "                              "
+                                "release a new album soon.     "
 
                                 "It would be a shame to never  "
                                 "hear it. I guess I'll keep    "
                                 "treading water for now...";
+
+const unsigned char* woodMusic2 = 
+                                "This driftwood has a pattern  "
+                                "like a musical note on it...  "
+                                "                              "
+
+                                "Touching this, I realize I    "
+                                "I still haven't seen Daughter "
+                                "live.                         "
+
+                                "Maybe they will come to my    "
+                                "country some day. I have to   "
+                                "keep floating and see!";
 
 const unsigned char* woodPeople = 
                                 "This driftwood has a pattern  "
@@ -458,23 +515,56 @@ const unsigned char* woodPeople =
                                 "they feel about me. If I keep "
                                 "floating, maybe I can...";
 
+const unsigned char* woodPeople2 =
+                                "This driftwood has a pattern  "
+                                "like a face on it...          "
+                                "                              "
+
+                                "Touching it, I recall the     "
+                                "huge party my friends are     "
+                                "throwing next month.          "
+
+                                "I wouldn't want to miss that! "
+                                "I guess I'll have to carry on.";
+
+
 //"                              ";
 const unsigned char* get_wood_text() {
 
-    switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
-        case 0xa0:
-            return woodBook;
-        case 0xa2:
-            return woodGame;
-        case 0xa4:
-            return woodMusic;
-        case 0xa6:
-            return woodPeople;
-        case 0xa8:
-            return woodTv;
+    if (currentMapSpriteData[(currentMapSpriteIndex) + 13] == 0) {
+        switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
+            case 0xa0:
+                return woodBook;
+            case 0xa2:
+                return woodGame;
+            case 0xa4:
+                return woodMusic;
+            case 0xa6:
+                return woodPeople;
+            case 0xa8:
+                return woodTv;
 
-        default: 
-            return woodError;
+            default: 
+                return woodError;
+        }
+    } else {
+
+        switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
+            case 0xa0:
+                return woodBook2;
+            case 0xa2:
+                return woodGame2;
+            case 0xa4:
+                return woodMusic2;
+            case 0xa6:
+                return woodPeople2;
+            case 0xa8:
+                return woodTv2;
+
+            default: 
+                return woodError;
+        }
+
     }
 }
 
