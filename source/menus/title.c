@@ -17,6 +17,7 @@ unsigned char titlePhase;
 
 
 void draw_title_screen(void) {
+	set_vram_update(NULL);
 	titlePhase = 0;
     ppu_off();
 	pal_bg(titlePalette);
@@ -54,13 +55,16 @@ void draw_title_screen_real(void) {
 	put_str(NTADR_A(12, 28), currentYear);
 	put_str(NTADR_A(17, 28), gameAuthor);
 
-	put_str(NTADR_A(10, 16), "Press Start!");
+	// put_str(NTADR_A(10, 16), "Press Start!");
+	put_str(NTADR_A(10, 16), "Normal Mode");
+	put_str(NTADR_A(10, 18), " Hard Mode");
 	ppu_on_all();
 	music_play(SONG_TITLE);
 	fade_in();
 }
 
 void draw_title1(void) {
+	set_vram_update(NULL);
 	fade_out();
     ppu_off();
 
@@ -80,8 +84,28 @@ void handle_title_input(void) {
 		++titlePhase;
 		draw_title_screen_real();
 	}
+	tempChar9 = pad_trigger(0);
 
-	if (titlePhase == 1 && pad_trigger(0) & PAD_START) {
+
+	if (titlePhase == 1) {
+		if (tempChar9 & PAD_UP) {
+			isEasyMode = 1;
+			sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
+		} else if (tempChar9 & PAD_DOWN) {
+			isEasyMode = 0;
+			sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
+		}
+		screenBuffer[0] = MSB(NTADR_A(8, 16)) | NT_UPD_VERT;
+		screenBuffer[1] = LSB(NTADR_A(8, 16));
+		screenBuffer[2] = 3;
+		screenBuffer[3] = isEasyMode ? 0xe2 : 0x00;
+		screenBuffer[4] = 0x00;
+		screenBuffer[5] = isEasyMode ? 0x00 : 0xe2;
+		screenBuffer[6] = NT_UPD_EOF;
+		set_vram_update(screenBuffer);
+	}
+
+	if (titlePhase == 1 && tempChar9 & (PAD_START|PAD_A)) {
 		++titlePhase;
 		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
 		music_play(SONG_WIN); // ocean
@@ -89,7 +113,7 @@ void handle_title_input(void) {
 		draw_title1();
 		return;
 	}
-	if (titlePhase == 2 && pad_trigger(0) & PAD_START) {
+	if (titlePhase == 2 && tempChar9 & (PAD_START|PAD_A)) {
 		gameState = GAME_STATE_POST_TITLE;
 		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
 

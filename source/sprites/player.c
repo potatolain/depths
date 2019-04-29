@@ -1031,7 +1031,7 @@ void handle_player_sprite_collision(void) {
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_DRIFTWOOD;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_SIZE_PALETTE] = SPRITE_SIZE_16PX_16PX | SPRITE_PALETTE_2;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID] = spriteDefinitions[(DRIFTWOOD_ID<<SPRITE_DEF_SHIFT)+SPRITE_DEF_POSITION_TILE_ID];
-                    playerMaxStamina = (PLAYER_START_MAX_STAMINA + (playerlifePreserverCount<<3));
+                    playerMaxStamina = (PLAYER_START_MAX_STAMINA + (isEasyMode ? 16 : 0) + (playerlifePreserverCount<<3));
                     playerStamina = playerMaxStamina;
 
                     sfx_play(SFX_KEY, SFX_CHANNEL_3);

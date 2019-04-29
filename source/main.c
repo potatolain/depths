@@ -50,7 +50,7 @@ void initialize_variables(void) {
     wavePosition = 0;
     hasGameOvered = 0;
     isStorming = 0;
-    isEasyMode = 0;
+    isEasyMode = 1;
 
     chrBankTiles = CHR_BANK_TILES;
     
@@ -87,8 +87,9 @@ void main(void) {
                 music_stop();
                 fade_out();
 
-                playerStamina = playerMaxStamina;
-                playerOverworldPosition = lastSaveOverworldPosition;
+
+                playerMaxStamina = (PLAYER_START_MAX_STAMINA + (isEasyMode ? 16 : 0) + (playerlifePreserverCount<<3));
+                playerStamina = playerMaxStamina;                playerOverworldPosition = lastSaveOverworldPosition;
                 playerXPosition = lastSaveXPosition;
                 playerYPosition = lastSaveYPosition;
 
