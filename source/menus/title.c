@@ -56,6 +56,7 @@ void draw_title_screen_real(void) {
 	put_str(NTADR_A(17, 28), gameAuthor);
 
 	// put_str(NTADR_A(10, 16), "Press Start!");
+	put_str(NTADR_A(10, 14), " Peaceful");
 	put_str(NTADR_A(10, 16), "Normal Mode");
 	put_str(NTADR_A(10, 18), " Hard Mode");
 	ppu_on_all();
@@ -88,20 +89,22 @@ void handle_title_input(void) {
 
 
 	if (titlePhase == 1) {
-		if (tempChar9 & PAD_UP) {
-			isEasyMode = 1;
+		if ((tempChar9 & PAD_UP) && gameDifficulty != GAME_DIFFICULTY_PEACEFUL) {
+			--gameDifficulty;
 			sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
-		} else if (tempChar9 & PAD_DOWN) {
-			isEasyMode = 0;
+		} else if ((tempChar9 & PAD_DOWN) && gameDifficulty != GAME_DIFFICULTY_HARD) {
+			++gameDifficulty;
 			sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
 		}
-		screenBuffer[0] = MSB(NTADR_A(8, 16)) | NT_UPD_VERT;
-		screenBuffer[1] = LSB(NTADR_A(8, 16));
-		screenBuffer[2] = 3;
-		screenBuffer[3] = isEasyMode ? 0xe2 : 0x00;
+		screenBuffer[0] = MSB(NTADR_A(8, 14)) | NT_UPD_VERT;
+		screenBuffer[1] = LSB(NTADR_A(8, 14));
+		screenBuffer[2] = 5;
+		screenBuffer[3] = gameDifficulty == GAME_DIFFICULTY_PEACEFUL ? 0xe2 : 0x00;
 		screenBuffer[4] = 0x00;
-		screenBuffer[5] = isEasyMode ? 0x00 : 0xe2;
-		screenBuffer[6] = NT_UPD_EOF;
+		screenBuffer[5] = gameDifficulty == GAME_DIFFICULTY_NORMAL ? 0xe2 : 0x00;
+		screenBuffer[6] = 0x00;
+		screenBuffer[7] = gameDifficulty == GAME_DIFFICULTY_HARD ? 0xe2 : 0x00;
+		screenBuffer[8] = NT_UPD_EOF;
 		set_vram_update(screenBuffer);
 	}
 

@@ -39,6 +39,15 @@ This game was developed for the original Nintendo Entertainment System. A ROM do
 It was built using [NES Starter Kit](https://cppchriscpp.github.io/nes-starter-kit) - a C-based game library
 for the NES. 
 
+## Magfest?
+
+This game might very well appear at magfest 2020! As such, I'm making some new enhnacements to the game to 
+make it more interesting. The original version is still available on my site and the Ludum Dare page. This version
+is available to play here: [MAGFest version](https://s3.amazonaws.com/cpprograms-nes-games-https/ld44/magfest/ld44.ldjam1.nes)
+
+I'll probably add some information to my site/etc as the date gets closer. If you decided to poke around github, you get
+to see things sooner!
+
 # A Note on git history
 
 I cloned nes-starter-kit to start this off, rather than copying it this time. (For some reason...)

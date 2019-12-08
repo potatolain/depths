@@ -729,20 +729,23 @@ void handle_player_movement(void) {
     }
 
     if (!isRecovery && (frameCount & 0x07) == 0x07) {
-        playerStamina--;
-        if (playerStamina == 48) {
-            sfx_play(SFX_DROWN1, SFX_CHANNEL_4);
-        } else if (playerStamina == 32) {
-            sfx_play(SFX_DROWN2, SFX_CHANNEL_2);
-        } else if (playerStamina == 16) {
-            sfx_play(SFX_DROWN3, SFX_CHANNEL_1);
-        }
+        
+        if ((gameDifficulty != GAME_DIFFICULTY_PEACEFUL) || ((frameCount & 0x15) == 0x15)) {
+            playerStamina--;
+            if (playerStamina == 48) {
+                sfx_play(SFX_DROWN1, SFX_CHANNEL_4);
+            } else if (playerStamina == 32) {
+                sfx_play(SFX_DROWN2, SFX_CHANNEL_2);
+            } else if (playerStamina == 16) {
+                sfx_play(SFX_DROWN3, SFX_CHANNEL_1);
+            }
 
-        if (playerStamina == 0 || playerStamina > 240) {
-            gameState = GAME_STATE_GAME_OVER;
-            music_stop();
-            sfx_play(SFX_GAMEOVER, SFX_CHANNEL_1);
-            return;
+            if (playerStamina == 0 || playerStamina > 240) {
+                gameState = GAME_STATE_GAME_OVER;
+                music_stop();
+                sfx_play(SFX_GAMEOVER, SFX_CHANNEL_1);
+                return;
+            }
         }
 
     }
@@ -1031,8 +1034,7 @@ void handle_player_sprite_collision(void) {
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TYPE] = SPRITE_TYPE_DRIFTWOOD;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_SIZE_PALETTE] = SPRITE_SIZE_16PX_16PX | SPRITE_PALETTE_2;
                     currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID] = spriteDefinitions[(DRIFTWOOD_ID<<SPRITE_DEF_SHIFT)+SPRITE_DEF_POSITION_TILE_ID];
-                    playerMaxStamina = (PLAYER_START_MAX_STAMINA + (isEasyMode ? 16 : 0) + (playerlifePreserverCount<<3));
-                    playerStamina = playerMaxStamina;
+                    reset_player_stamina();
 
                     sfx_play(SFX_KEY, SFX_CHANNEL_3);
 
@@ -1112,7 +1114,7 @@ void handle_player_sprite_collision(void) {
                     return;
                 }
 
-                playerStamina -= 8;
+                playerStamina -= (gameDifficulty == GAME_DIFFICULTY_PEACEFUL ? 4 : 8);
                 playerInvulnerabilityTime = PLAYER_DAMAGE_INVULNERABILITY_TIME;
 
                 if (playerStamina == 0 || playerStamina > 240) {
@@ -1127,4 +1129,17 @@ void handle_player_sprite_collision(void) {
         }
 
     }
+}
+
+
+void reset_player_stamina(void) {
+    playerMaxStamina = (PLAYER_START_MAX_STAMINA + (playerlifePreserverCount<<3));
+
+    if (gameDifficulty == GAME_DIFFICULTY_NORMAL) {
+        playerMaxStamina += 16;
+    } else if (gameDifficulty == GAME_DIFFICULTY_PEACEFUL) {
+        // TODO: Slow down reduction time for hard, leave this alone.
+        playerMaxStamina += 32;
+    }
+    playerStamina = playerMaxStamina;
 }

@@ -38,7 +38,11 @@ ZEROPAGE_EXTERN(unsigned char, chrBankTiles);
 
 ZEROPAGE_EXTERN(unsigned char, isStorming);
 ZEROPAGE_EXTERN(unsigned char, isRecovery);
-ZEROPAGE_EXTERN(unsigned char, isEasyMode);
+ZEROPAGE_EXTERN(unsigned char, gameDifficulty);
+
+#define GAME_DIFFICULTY_PEACEFUL 0
+#define GAME_DIFFICULTY_NORMAL 1
+#define GAME_DIFFICULTY_HARD 2
 
 
 

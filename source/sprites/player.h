@@ -57,3 +57,5 @@ void handle_player_sprite_collision(void);
 
 #define PLAYER_START_MAX_STAMINA 64
 void trigger_game_start_text(void);
+
+void reset_player_stamina(void);

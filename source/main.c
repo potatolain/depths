@@ -50,7 +50,7 @@ void initialize_variables(void) {
     wavePosition = 0;
     hasGameOvered = 0;
     isStorming = 0;
-    isEasyMode = 1;
+    gameDifficulty = GAME_DIFFICULTY_NORMAL;
 
     chrBankTiles = CHR_BANK_TILES;
     
@@ -88,8 +88,8 @@ void main(void) {
                 fade_out();
 
 
-                playerMaxStamina = (PLAYER_START_MAX_STAMINA + (isEasyMode ? 16 : 0) + (playerlifePreserverCount<<3));
-                playerStamina = playerMaxStamina;                playerOverworldPosition = lastSaveOverworldPosition;
+                banked_call(PRG_BANK_PLAYER_SPRITE, reset_player_stamina);
+                playerOverworldPosition = lastSaveOverworldPosition;
                 playerXPosition = lastSaveXPosition;
                 playerYPosition = lastSaveYPosition;
 

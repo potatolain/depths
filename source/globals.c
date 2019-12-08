@@ -30,7 +30,7 @@ ZEROPAGE_DEF(unsigned char, chrBankTiles);
 ZEROPAGE_DEF(unsigned char, isStorming);
 ZEROPAGE_DEF(unsigned char, isRecovery);
 
-ZEROPAGE_DEF(unsigned char, isEasyMode);
+ZEROPAGE_DEF(unsigned char, gameDifficulty);
 
 unsigned char hasGameOvered;
 
