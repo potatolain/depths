@@ -17,6 +17,8 @@ to pass this game up.
 
 [Play](http://cpprograms.net/classic-gaming/depths)
 
+[See updates on Twitter](https://twitter.com/cppchriscpp)
+
 ## Controls
 
 A Button (Z): Talk/Interact
