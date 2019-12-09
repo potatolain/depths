@@ -96,7 +96,7 @@ const unsigned char* preserverText[] = {
                                 "collection always helps.      "
                                 "                              "
                                 
-                                "Come on Maxwell <3"
+                                "Come on Sadie <3"
                                 
                                 ,
 
