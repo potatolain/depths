@@ -85,12 +85,12 @@ const unsigned char* preserverText[] = {
                                 "                              "
 
                                 "It seems to have a face. It   "
-                                "looks just like my cat. He's  "
+                                "looks just like my cat. She's "
                                 "waiting for me at home.       "
 
-                                "I need to stay afloat for him."
-                                "He can't take care of himself!"
-                                "                              "
+                                "I need to stay afloat for her."
+                                "She can't take care of        "
+                                "herself!                      "
                                 
                                 "Another life preserver in my  "
                                 "collection always helps.      "
@@ -1028,6 +1028,7 @@ void handle_player_sprite_collision(void) {
                     lastSaveOverworldPosition = playerOverworldPosition;
 
                     trigger_game_text(preserverText[playerlifePreserverCount]);
+                    ++checkpointHits[playerlifePreserverCount];
 
 
                     ++playerlifePreserverCount;

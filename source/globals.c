@@ -67,3 +67,12 @@ const unsigned int bitToByte[8] = {
     0x40,
     0x80
 };
+
+
+
+SRAM_DEF(unsigned int, playCount);
+SRAM_DEF(unsigned int, winCount);
+SRAM_ARRAY_DEF(unsigned int, checkpointHits, 10);
+
+SRAM_ARRAY_DEF(unsigned int, difficultyStartCount, 3);
+SRAM_ARRAY_DEF(unsigned int, difficultyWinCount, 3);

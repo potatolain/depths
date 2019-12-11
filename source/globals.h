@@ -44,6 +44,9 @@ ZEROPAGE_EXTERN(unsigned char, gameDifficulty);
 #define GAME_DIFFICULTY_NORMAL 1
 #define GAME_DIFFICULTY_HARD 2
 
+#define GAME_DIFFICULTY_STAT_DUMP 3
+#define GAME_DIFFICULTY_RESET_STATS 4
+
 
 
 // A few temp variables we'll reuse a lot... be sure not to expect the state of these to stick around
@@ -71,9 +74,25 @@ ZEROPAGE_EXTERN(int, tempInt6);
 
 extern const unsigned int bitToByte[8];
 
+SRAM_EXTERN(unsigned int, playCount);
+SRAM_EXTERN(unsigned int, winCount);
+SRAM_ARRAY_EXTERN(unsigned int, checkpointHits, 10);
+SRAM_ARRAY_EXTERN(unsigned int, difficultyStartCount, 3);
+SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
+
+
 // TODO: There might be a nicer home for these
 // Get the absolute value of a number, the lazy person's way.
 #define ABS(x) ((x) > 0 ? x : 0-(x))
 
 // Set a memory address to a value. Very, very raw.
 #define SET_ADDR_VALUE(addr, value) *(unsigned char*)(addr) = value
+
+
+#define DEBUG 1
+
+#if DEBUG == 0
+#define GAME_DIFFICULTY_MAX GAME_DIFFICULTY_HARD
+#else 
+#define GAME_DIFFICULTY_MAX GAME_DIFFICULTY_RESET_STATS
+#endif

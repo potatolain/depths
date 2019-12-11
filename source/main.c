@@ -117,6 +117,8 @@ void main(void) {
                 } else {
                     pal_bright(4);
                 }
+                ++playCount;
+                ++difficultyStartCount[gameDifficulty];
 
 
                 banked_call(PRG_BANK_MAP_SPRITES, update_map_sprites);
@@ -223,6 +225,8 @@ void main(void) {
                 //music_stop();
                 sfx_play(SFX_WIN, SFX_CHANNEL_1);
                 music_play(SONG_WIN);
+                ++winCount;
+                ++difficultyWinCount[gameDifficulty];
 
                 fade_out();
                 // Draw the "you won" screen
