@@ -117,7 +117,7 @@ temp/level_overworld.c: levels/overworld.tmx
 	$(TMX2C) 3 overworld $< $(patsubst %.c, %, $@)
 
 graphics/generated/tiles.png: graphics/tiles.chr graphics/sprites.chr graphics/palettes/main_bg.pal
-	$(CHR2IMG) graphics/tiles.chr graphics/palettes/main_bg.pal graphics/generated/tiles.png
+	$(CHR2IMG) graphics/tiles_new.chr graphics/palettes/main_bg.pal graphics/generated/tiles.png
 
 graphics/generated/sprites.png: graphics/tiles.chr graphics/sprites.chr graphics/palettes/main_sprite.pal source/sprites/sprite_definitions.c
 	$(SPRITE_DEF2IMG) ./source/sprites/sprite_definitions.c ./graphics/sprites.chr ./graphics/palettes/main_sprite.pal graphics/generated/sprites.png
