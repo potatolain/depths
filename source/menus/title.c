@@ -126,9 +126,9 @@ void draw_title_screen_real(void) {
 	put_str(NTADR_A(17, 28), gameAuthor);
 
 	// put_str(NTADR_A(10, 16), "Press Start!");
-	put_str(NTADR_A(10, 14), " Peaceful");
-	put_str(NTADR_A(10, 16), "Normal Mode");
-	put_str(NTADR_A(10, 18), " Hard Mode");
+	put_str(NTADR_A(10, 14), "Peaceful Game");
+	put_str(NTADR_A(10, 16), " Normal Game");
+	// put_str(NTADR_A(10, 18), " Hard Mode");
 #if DEBUG == 1
 	put_str(NTADR_A(10, 20), "Stat dump");
 	put_str(NTADR_A(10, 22), "Reset Stats");

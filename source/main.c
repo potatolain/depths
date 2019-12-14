@@ -23,7 +23,11 @@ This has the main loop for the game, which is then used to call out to other cod
 #include "source/menus/game_over.h"
 
 void set_chr_tile_bank(void) {
-    chrBankTiles = 5 + ((frameCount >> 6) & 0x01);
+    if (isStorming) {
+        chrBankTiles = 5 + ((frameCount >> 6) & 0x01);
+    } else {
+        chrBankTiles = 5 + ((frameCount >> 6) & 0x01);
+    }
 }
 
 // Method to set a bunch of variables to default values when the system starts up.

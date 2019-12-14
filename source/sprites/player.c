@@ -616,6 +616,11 @@ void handle_player_movement(void) {
         gameState = GAME_STATE_PAUSED;
         return;
     }
+    #if DEBUG == 1
+        if (controllerState & PAD_SELECT && !(lastControllerState & PAD_SELECT)) {
+            isStorming = !isStorming;
+        }
+    #endif
 
     if (inSlowStuff) {
         if (!(frameCount & 0x0f)) {
