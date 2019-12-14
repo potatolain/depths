@@ -22,6 +22,9 @@ This has the main loop for the game, which is then used to call out to other cod
 #include "source/menus/input_helpers.h"
 #include "source/menus/game_over.h"
 
+void set_chr_tile_bank(void) {
+    chrBankTiles = 5 + ((frameCount >> 6) & 0x01);
+}
 
 // Method to set a bunch of variables to default values when the system starts up.
 // Note that if variables aren't set in this method, they will start at 0 on NES startup.
@@ -52,7 +55,7 @@ void initialize_variables(void) {
     isStorming = 0;
     gameDifficulty = GAME_DIFFICULTY_NORMAL;
 
-    chrBankTiles = CHR_BANK_TILES;
+    set_chr_tile_bank();
     
     // Little bit of generic initialization below this point - we need to set
     // The system up to use a different hardware bank for sprites vs backgrounds.
@@ -134,7 +137,7 @@ void main(void) {
                 banked_call(PRG_BANK_PLAYER_SPRITE, handle_player_movement);
                 banked_call(PRG_BANK_PLAYER_SPRITE, update_player_sprite);
 
-                chrBankTiles = 3 + ((frameCount >> 6) & 0x01);
+                set_chr_tile_bank();
 
                 set_chr_bank_0(chrBankTiles);
                 tempChar1 = get_ppu_mask();
