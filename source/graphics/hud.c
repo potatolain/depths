@@ -30,6 +30,10 @@ void draw_hud(void) {
         vram_put(STAMINA_TXT + i);
     }
     vram_put(STAMINA_TXT + 2); // a
+    
+    // Left of preserver icons
+    vram_adr(0x2b60);
+    vram_put(0xe3);
 
     vram_adr(NAMETABLE_A + HUD_KEY_START - 40);
     vram_put(LIFE_PRES_TXT + 0);
@@ -55,8 +59,8 @@ void update_hud(void) {
     // as we add values. 
     i = 0;
     tempChar1 = playerStamina >> 1;
-    screenBuffer[i++] = MSB(NAMETABLE_A + HUD_HEART_START) | NT_UPD_HORZ;
-    screenBuffer[i++] = LSB(NAMETABLE_A + HUD_HEART_START);
+    screenBuffer[i++] = MSB(NAMETABLE_A + HUD_HEART_START+1) | NT_UPD_HORZ;
+    screenBuffer[i++] = LSB(NAMETABLE_A + HUD_HEART_START+1);
     screenBuffer[i++] = 8;
 
     for (j = 0; j != 8; ++j) {
@@ -79,16 +83,22 @@ void update_hud(void) {
 
 
     tempChar1 = 0x04;
+    tempChar2 = 0x22;
     if (playerStamina < 17) {
         tempChar1 = 0x06;
+        tempChar2 = 0x16;
     } else if (playerStamina < 33) {
         tempChar1 = 0x16;
+        tempChar2 = 0x26;
     } else if (playerStamina < 49) {
         tempChar1 = 0x26;
+        tempChar2 = 0x37;
     }
-    screenBuffer[i++] = MSB(0x3f0d);
+    screenBuffer[i++] = MSB(0x3f0d) | NT_UPD_HORZ;
     screenBuffer[i++] = LSB(0x3f0d);
+    screenBuffer[i++] = 2;
     screenBuffer[i++] = tempChar1;
+    screenBuffer[i++] = tempChar2;
     screenBuffer[i++] = NT_UPD_EOF;
     set_vram_update(screenBuffer);
 

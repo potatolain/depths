@@ -17,7 +17,7 @@ ZEROPAGE_EXTERN(unsigned char, currentWorldId);
 
 ZEROPAGE_EXTERN(unsigned char, playerStamina);
 
-ZEROPAGE_ARRAY_EXTERN(unsigned char, screenBuffer, 0x23);
+ZEROPAGE_ARRAY_EXTERN(unsigned char, screenBuffer, 0x25);
 
 ZEROPAGE_EXTERN(unsigned char, controllerState);
 ZEROPAGE_EXTERN(unsigned char, lastControllerState);
