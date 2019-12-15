@@ -390,6 +390,24 @@ const unsigned char* get_npc_text() {
     }
 }
 
+const unsigned char* get_preserver_text() {
+    switch (playerOverworldPosition) {
+        case 11:
+            return preserverText[1];
+        case 27:
+            return preserverText[0];
+        case 29: 
+            return preserverText[2];
+        case 34:
+            return preserverText[3];
+        case 56:
+            return preserverText[4];
+        default:
+            return errorText;
+
+    }
+}
+
 const unsigned char* woodError = 
                                 "The design on this driftwood  "
                                 "reminds me of something, but I"
@@ -1053,7 +1071,7 @@ void handle_player_sprite_collision(void) {
                     lastSaveYPosition = playerYPosition;
                     lastSaveOverworldPosition = playerOverworldPosition;
 
-                    trigger_game_text(preserverText[playerlifePreserverCount]);
+                    trigger_game_text(get_preserver_text());
                     ++checkpointHits[playerlifePreserverCount];
 
 
