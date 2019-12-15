@@ -70,6 +70,18 @@ void load_sprites(void) {
                 }
             }
 
+            // HACK: Override collision map with a solid block of some sort, so we can shut sprite collision off.
+            // FIXME: Need to make collision areas for sprites a smidge bigger than a block
+            switch (spriteDefinitions[spriteDefinitionIndex + SPRITE_DEF_POSITION_TYPE]) {
+                // Endgame will break if we replace it... we actually need the original tile, I think?
+                case SPRITE_TYPE_ENDGAME:
+                    break;
+                default:
+                    // Regular water, except with collision... yeah. idk.
+                    currentMap[spritePosition] = ((currentMap[spritePosition] & 0x3f) == 0x01 || (currentMap[spritePosition] & 0x3f) == 0x68 ? 0x68 : 0x69);
+                    break;
+            }
+
 
 
             // Get X converted to our extended 16-bit int size.

@@ -961,6 +961,8 @@ void handle_player_sprite_collision(void) {
                 // new player position also collide? If so, stop it. Else, let it go.
 
                 // Calculate position...
+                // HACK: Just let tile collision handle this bit.
+                /*
                 tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
                 tempSpriteCollisionY = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y + 1]) << 8));
 
@@ -976,6 +978,7 @@ void handle_player_sprite_collision(void) {
                     playerYPosition -= playerYVelocity;
                     playerControlsLockTime = 0;
                 }
+                */
                 break;
             case SPRITE_TYPE_ENDGAME:
                 gameState = GAME_STATE_CREDITS;
@@ -984,6 +987,9 @@ void handle_player_sprite_collision(void) {
                 isRecovery = 1;
                 // Okay, we collided with this NPC before we calculated the player's movement. After being moved, does the 
                 // new player position also collide? If so, stop it. Else, let it go.
+
+                // HACK: Just let tile collision handle this bit.
+                /*
 
                 // Calculate position...
                 tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
@@ -1000,7 +1006,7 @@ void handle_player_sprite_collision(void) {
                     playerYPosition -= playerYVelocity;
                     playerControlsLockTime = 0;
                 }
-
+*/
                 if (controllerState & PAD_A && !(lastControllerState & PAD_A)) {
                     // Show the text for the player on the first screen
                     trigger_game_text(get_npc_text());
@@ -1011,6 +1017,9 @@ void handle_player_sprite_collision(void) {
                 // new player position also collide? If so, stop it. Else, let it go.
 
                 // Calculate position...
+                // HACK: Just let tile collision handle this bit.
+                /*
+
                 tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
                 tempSpriteCollisionY = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y + 1]) << 8));
                 // Are we colliding?
@@ -1025,7 +1034,7 @@ void handle_player_sprite_collision(void) {
                     playerYPosition -= playerYVelocity;
                     playerControlsLockTime = 0;
                 }
-
+*/
                 if (playerlifePreserverCount < MAX_LIFE_PRESERVER_COUNT) {
                     // Show the text for the player on the first screen
                     lastSaveXPosition = playerXPosition;
@@ -1065,6 +1074,9 @@ void handle_player_sprite_collision(void) {
                     sfx_play(SFX_REFILL, SFX_CHANNEL_2);
                 }
 
+                // HACK: Just let tile collision handle this bit.
+                /*
+
                 // Calculate position...
                 tempSpriteCollisionX = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_X + 1]) << 8));
                 tempSpriteCollisionY = ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y]) + ((currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_Y + 1]) << 8));
@@ -1081,7 +1093,7 @@ void handle_player_sprite_collision(void) {
                     playerYPosition -= playerYVelocity;
                     playerControlsLockTime = 0;
                 }
-
+*/
                 if (!isStorming && playerOverworldPosition == 41) {
                     isStorming = 1;
                     sfx_play(SFX_BOOM, SFX_CHANNEL_1);

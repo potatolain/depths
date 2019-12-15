@@ -346,6 +346,11 @@ void update_map_sprites(void) {
             if (currentSpriteType == SPRITE_TYPE_REGULAR_ENEMY || currentSpriteType == SPRITE_TYPE_INVULNERABLE_ENEMY) {
                 sprX -= SPRITE_HITBOX_OFFSET;
                 sprY -= SPRITE_HITBOX_OFFSET;
+            } else {
+                sprX -= SPRITE_HITBOX_OFFSET<<1;
+                sprY -= SPRITE_HITBOX_OFFSET;
+                currentSpriteFullWidth += SPRITE_HITBOX_OFFSET << 2;
+                currentSpriteFullHeight += SPRITE_HITBOX_OFFSET << 1;
             }
 
             // Collision test... see here for a clear explanation: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
