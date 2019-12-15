@@ -18,6 +18,7 @@
 #define SPRITE_ANIMATION_SWAP 10
 // This flips sprites between two animation states, like the one above. Just faster!
 #define SPRITE_ANIMATION_SWAP_FAST 11
+#define SPRITE_ANIMATION_SWAP_SLOW 12
 // This is the "full" animation style - it flips between two animation frames in each direction.
 #define SPRITE_ANIMATION_FULL 50
 

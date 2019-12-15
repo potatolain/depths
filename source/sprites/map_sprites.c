@@ -142,6 +142,12 @@ void update_map_sprites(void) {
                 } else if (currentSpriteSize == SPRITE_SIZE_16PX_16PX) {
                     currentSpriteTileId += ((frameCount & 0x08) >> 2);
                 }
+            case SPRITE_ANIMATION_SWAP_SLOW:
+                if (currentSpriteSize == SPRITE_SIZE_8PX_8PX) {
+                    currentSpriteTileId += ((frameCount & 0x40) >> 6);
+                } else if (currentSpriteSize == SPRITE_SIZE_16PX_16PX) {
+                    currentSpriteTileId += ((frameCount & 0x40) >> 5);
+                }
                 break;
             case SPRITE_ANIMATION_FULL:
                 // This is for sprites that can face up/down/left/right, and are animated while they do so.
