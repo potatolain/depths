@@ -14,6 +14,8 @@ CODE_BANK(PRG_BANK_TITLE);
 #include "graphics/title_1.h"
 #include "graphics/prestart.h"
 
+#include "graphics/newtitle.h"
+
 unsigned char titlePhase;
 
 #define PRINT_NUM(x, y, num) vram_adr(NTADR_A(x, y)); vram_put('0' + ((num % 1000) / 100) - 0x20); vram_put('0' + ((num % 100) / 10) - 0x20); vram_put('0' + ((num % 10)) - 0x20);
@@ -113,11 +115,13 @@ void draw_title_screen_real(void) {
 
 	set_chr_bank_0(CHR_BANK_MENU);
     set_chr_bank_1(CHR_BANK_MENU);
-	clear_screen();
+	// clear_screen();
 	oam_clear();
+	vram_adr(NAMETABLE_A);
+	vram_unrle(newtitle);
 
     
-    put_str(NTADR_A(12, 5), gameName);
+    // put_str(NTADR_A(12, 5), gameName);
 	
 	put_str(NTADR_A(2, 26), gameAuthorContact);
 	
@@ -126,12 +130,12 @@ void draw_title_screen_real(void) {
 	put_str(NTADR_A(17, 28), gameAuthor);
 
 	// put_str(NTADR_A(10, 16), "Press Start!");
-	put_str(NTADR_A(10, 14), "Peaceful Game");
-	put_str(NTADR_A(10, 16), " Normal Game");
+	put_str(NTADR_A(10, 20), "Peaceful Game");
+	put_str(NTADR_A(10, 22), " Normal Game");
 	// put_str(NTADR_A(10, 18), " Hard Mode");
 #if DEBUG == 1
-	put_str(NTADR_A(10, 20), "Stat dump");
-	put_str(NTADR_A(10, 22), "Reset Stats");
+	put_str(NTADR_A(10, 24), "Stat dump");
+	put_str(NTADR_A(10, 26), "Reset Stats");
 	put_str(NTADR_A(0, 1), "DEBUG MODE ENABLED");
 #endif
 
@@ -154,6 +158,10 @@ void draw_title1(void) {
 
 }
 
+#define TITLE_AREA(x, y, tileId) screenBuffer[i++] = MSB(NTADR_A(x, y)); \
+	screenBuffer[i++] = LSB(NTADR_A(x, y)); \
+	screenBuffer[i++] = tileId;
+
 void handle_title_input(void) {
 
 	++tempChara;
@@ -162,6 +170,7 @@ void handle_title_input(void) {
 		draw_title_screen_real();
 	}
 	tempChar9 = pad_trigger(0);
+
 
 
 	if (titlePhase == 1) {
@@ -173,29 +182,12 @@ void handle_title_input(void) {
 			sfx_play(SFX_CLICKY, SFX_CHANNEL_1);
 		}
 
-		screenBuffer[0] = MSB(NTADR_A(8, 14)) | NT_UPD_VERT;
-		screenBuffer[1] = LSB(NTADR_A(8, 14));
-#if DEBUG == 1
-		screenBuffer[2] = 9;
-#else
-		screenBuffer[2] = 5;
-#endif
-		screenBuffer[3] = gameDifficulty == GAME_DIFFICULTY_PEACEFUL ? 0xe2 : 0x00;
-		screenBuffer[4] = 0x00;
-		screenBuffer[5] = gameDifficulty == GAME_DIFFICULTY_NORMAL ? 0xe2 : 0x00;
-		screenBuffer[6] = 0x00;
-		screenBuffer[7] = gameDifficulty == GAME_DIFFICULTY_HARD ? 0xe2 : 0x00;
-		screenBuffer[8] = NT_UPD_EOF;
-
-#if DEBUG == 1
-		screenBuffer[8] = 0x00;
-		screenBuffer[9] = gameDifficulty == GAME_DIFFICULTY_STAT_DUMP ? 0xe2 : 0x00;
-
-		screenBuffer[10] = 0x00;
-		screenBuffer[11] = gameDifficulty == GAME_DIFFICULTY_RESET_STATS ? 0xe2 : 0x00;
-
-		screenBuffer[12] = NT_UPD_EOF;
-#endif 
+		i = 0;
+		TITLE_AREA(8, 20, gameDifficulty == GAME_DIFFICULTY_PEACEFUL ? 0xe2 : 0x00);
+		TITLE_AREA(9, 22, gameDifficulty == GAME_DIFFICULTY_NORMAL ? 0xe2: 0x00);
+		TITLE_AREA(8, 24, gameDifficulty == GAME_DIFFICULTY_STAT_DUMP ? 0xe2 : 0x00);
+		TITLE_AREA(8, 26, gameDifficulty == GAME_DIFFICULTY_RESET_STATS ? 0xe2: 0x00);
+		screenBuffer[i++] = NT_UPD_EOF;
 		set_vram_update(screenBuffer);
 	}
 
@@ -223,4 +215,7 @@ void handle_title_input(void) {
 
 		return;
 	}
+
+    set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+    set_chr_bank_1(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
 }
