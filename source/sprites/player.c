@@ -611,6 +611,18 @@ void handle_player_movement(void) {
     lastControllerState = controllerState;
     controllerState = pad_poll(0);
 
+#if IS_KIOSK == 1
+    if (controllerState == lastControllerState) {
+        ++resetTimer;
+    } else {
+        resetTimer = 0;
+    }
+    // How long to wait until dumping, frames * seconds * minutes
+    if (resetTimer > (60 * 60 * TIMEOUT_MINUTES)) {
+        reset();
+    }
+#endif
+
     // If Start is pressed now, and was not pressed before...
     if (controllerState & PAD_START && !(lastControllerState & PAD_START)) {
         gameState = GAME_STATE_PAUSED;

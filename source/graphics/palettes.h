@@ -5,3 +5,4 @@ extern const unsigned char titlePalette[16];
 extern const unsigned char errorPalette[16];
 extern const unsigned char mainBgPalette[16];
 extern const unsigned char mainSpritePalette[16];
+extern const unsigned char titleAniPalette[16];

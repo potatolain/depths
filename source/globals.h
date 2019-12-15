@@ -72,6 +72,8 @@ ZEROPAGE_EXTERN(int, tempInt4);
 ZEROPAGE_EXTERN(int, tempInt5);
 ZEROPAGE_EXTERN(int, tempInt6);
 
+ZEROPAGE_EXTERN(long, resetTimer)
+
 extern const unsigned int bitToByte[8];
 
 SRAM_EXTERN(unsigned int, playCount);
@@ -90,6 +92,10 @@ SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
 
 
 #define DEBUG 1
+#define IS_KIOSK 1
+
+// In kiosk mode, how long until we kick you out if you don't do any inputs. Applies to both the "you died" screen and game w/ no input at all.
+#define TIMEOUT_MINUTES 10
 
 #if DEBUG == 0
 #define GAME_DIFFICULTY_MAX GAME_DIFFICULTY_NORMAL

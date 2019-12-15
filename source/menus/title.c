@@ -110,8 +110,8 @@ void draw_title_screen(void) {
 void draw_title_screen_real(void) {
 	fade_out();
     ppu_off();
-	pal_bg(titlePalette);
-	pal_spr(titlePalette);
+	pal_bg(titleAniPalette);
+	pal_spr(titleAniPalette);
 
 	set_chr_bank_0(CHR_BANK_MENU);
     set_chr_bank_1(CHR_BANK_MENU);
@@ -148,6 +148,8 @@ void draw_title1(void) {
 	set_vram_update(NULL);
 	fade_out();
     ppu_off();
+	pal_bg(titlePalette);
+	pal_spr(titlePalette);
 
 
 	vram_adr(NAMETABLE_A);
@@ -185,8 +187,11 @@ void handle_title_input(void) {
 		i = 0;
 		TITLE_AREA(8, 20, gameDifficulty == GAME_DIFFICULTY_PEACEFUL ? 0xe2 : 0x00);
 		TITLE_AREA(9, 22, gameDifficulty == GAME_DIFFICULTY_NORMAL ? 0xe2: 0x00);
+// Stripped out because these mess up the text at the bottom, since they override it (because lazy)
+#if DEBUG == 1
 		TITLE_AREA(8, 24, gameDifficulty == GAME_DIFFICULTY_STAT_DUMP ? 0xe2 : 0x00);
 		TITLE_AREA(8, 26, gameDifficulty == GAME_DIFFICULTY_RESET_STATS ? 0xe2: 0x00);
+#endif
 		screenBuffer[i++] = NT_UPD_EOF;
 		set_vram_update(screenBuffer);
 	}

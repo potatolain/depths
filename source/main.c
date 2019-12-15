@@ -222,7 +222,33 @@ void main(void) {
                 // Draw the "you lose" screen
                 banked_call(PRG_BANK_GAME_OVER, draw_game_over_screen);
                 fade_in();
-                banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
+                resetTimer = 0;
+
+                // HACKISH - custom loop to kick the user out after a few minutes.
+                while (1) {
+                    lastControllerState = controllerState;
+                    controllerState = pad_poll(0);
+
+                    // If Start is pressed now, and was not pressed before...
+                    if (controllerState & PAD_START && !(lastControllerState & PAD_START)) {
+                        break;
+                    }
+
+                    #if IS_KIOSK == 1
+                        ++resetTimer;
+
+                        // How long to wait until dumping, frames * seconds * minutes
+                        if (resetTimer > (60 * 60 * TIMEOUT_MINUTES)) {
+                            reset();
+                        }
+                    #endif
+
+                    ppu_wait_nmi();
+
+                }
+
+
+
                 if (hasGameOvered != 255)
                     ++hasGameOvered;
                 oam_clear();
