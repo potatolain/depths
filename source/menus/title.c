@@ -123,7 +123,9 @@ void draw_title_screen_real(void) {
     
     // put_str(NTADR_A(12, 5), gameName);
 	
-	put_str(NTADR_A(2, 26), gameAuthorContact);
+	//put_str(NTADR_A(2, 25), gameAuthorContact);
+
+	put_str(NTADR_A(2, 26), "https://depths.nes.science");
 	
 	put_str(NTADR_A(2, 28), "Copyright");
 	put_str(NTADR_A(12, 28), currentYear);
