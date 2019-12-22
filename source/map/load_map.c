@@ -14,4 +14,10 @@ void load_map(void) {
     memcpy(currentMap, overworld + (playerOverworldPosition << 8), 256);
     bank_pop();
 
+    #if DEBUG == 1
+    // Stick a game win tile on screen one for ease of testing the ending
+        if (playerOverworldPosition == 27) {
+            currentMap[195] = 12;
+        }
+    #endif
 }

@@ -36,8 +36,13 @@ void draw_win_screen(unsigned char id) {
     set_vram_update(NULL);
 
     // We reuse the title palette here, though we have the option of making our own if needed.
-    pal_bg(titlePalette);
-	pal_spr(titlePalette);
+    if (id == 6) {
+        pal_bg(titleAniPalette);
+        pal_spr(titleAniPalette);
+    } else {
+        pal_bg(titlePalette);
+	    pal_spr(titlePalette);
+    }
     scroll(0, 0);
 
 	set_chr_bank_0(CHR_BANK_MENU);

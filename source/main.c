@@ -283,7 +283,21 @@ void main(void) {
                 for (j = 2; j != 7; ++j) {
                     draw_win_screen(j);
                     fade_in();
-                    banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
+                    while (1) {
+                        lastControllerState = controllerState;
+                        controllerState = pad_poll(0);
+
+                        // If Start is pressed now, and was not pressed before...
+                        if (controllerState & PAD_START && !(lastControllerState & PAD_START)) {
+                            break;
+                        }
+
+                        ppu_wait_nmi();
+
+                        set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+                        set_chr_bank_1(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+                    }
+
                     fade_out();
                 }
 
