@@ -92,7 +92,7 @@ SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
 
 
 #define DEBUG 0
-#define IS_KIOSK 1
+#define IS_KIOSK 0
 
 // In kiosk mode, how long until we kick you out if you don't do any inputs. Applies to both the "you died" screen and game w/ no input at all.
 #define TIMEOUT_MINUTES 10
