@@ -107,14 +107,21 @@ void draw_title_screen(void) {
 	gameState = GAME_STATE_TITLE_INPUT;
 }
 
+const unsigned char titleSprites[] = {
+	10*8, 14*8, 0xcc, 0,
+	14*8, 12*8, 0x00, 0,
+	10*8, 10*8, 0xe0, 2, 
+	20*8, 10*8, 0xe0, 2,
+};
+
 void draw_title_screen_real(void) {
 	fade_out();
     ppu_off();
 	pal_bg(titleAniPalette);
-	pal_spr(titleAniPalette);
+	pal_spr(mainSpritePalette);
 
 	set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_MENU);
+    set_chr_bank_1(CHR_BANK_SPRITES);
 	// clear_screen();
 	oam_clear();
 	vram_adr(NAMETABLE_A);
@@ -152,7 +159,7 @@ void draw_title1(void) {
     ppu_off();
 	pal_bg(titlePalette);
 	pal_spr(titlePalette);
-
+	oam_clear();
 
 	vram_adr(NAMETABLE_A);
 	vram_unrle(title_1);
@@ -196,6 +203,19 @@ void handle_title_input(void) {
 #endif
 		screenBuffer[i++] = NT_UPD_EOF;
 		set_vram_update(screenBuffer);
+		for (i = 0; i != 16; i += 4) {
+			if (titleSprites[i+2] != 0xe0) {
+				tempChar8 = ((frameCount >> 6) & 0x01) * 2;
+			} else {
+				tempChar8 = 0;
+			}
+
+			oam_spr(titleSprites[i], titleSprites[i+1], titleSprites[i+2] + tempChar8, titleSprites[i+3], (i<<2));
+			oam_spr(titleSprites[i]+8, titleSprites[i+1], titleSprites[i+2]+1 + tempChar8, titleSprites[i+3], (i<<2)+4);
+			oam_spr(titleSprites[i], titleSprites[i+1]+8, titleSprites[i+2]+16 + tempChar8, titleSprites[i+3], (i<<2)+8);
+			oam_spr(titleSprites[i]+8, titleSprites[i+1]+8, titleSprites[i+2]+17 + tempChar8, titleSprites[i+3], (i<<2)+12);
+		}
+
 	}
 
 	if (titlePhase == 1 && tempChar9 & (PAD_START|PAD_A)) {
@@ -224,5 +244,5 @@ void handle_title_input(void) {
 	}
 
     set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
-    set_chr_bank_1(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+
 }

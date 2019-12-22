@@ -30,6 +30,13 @@ void set_chr_tile_bank(void) {
     }
 }
 
+const unsigned char creditSprites[] = {
+	8*8, 12*8, 0xcc, 0,
+	16*8, 12*8, 0x00, 0,
+	22*8, 18*8, 0xcc, 0
+};
+
+
 // Method to set a bunch of variables to default values when the system starts up.
 // Note that if variables aren't set in this method, they will start at 0 on NES startup.
 void initialize_variables(void) {
@@ -259,9 +266,28 @@ void main(void) {
                 for (j = 2; j != 7; ++j) {
                     draw_win_screen(j);
                     fade_in();
+                    resetTimer = 0;
                     while (1) {
                         lastControllerState = controllerState;
                         controllerState = pad_poll(0);
+
+                        if (j == 6) {
+                            for (i = 0; i != 12; i += 4) {
+                                if (creditSprites[i+2] != 0xe0) {
+                                    tempChar8 = ((frameCount >> 6) & 0x01) * 2;
+                                } else {
+                                    tempChar8 = 0;
+                                }
+
+                                oam_spr(creditSprites[i], creditSprites[i+1], creditSprites[i+2] + tempChar8, creditSprites[i+3], (i<<2));
+                                oam_spr(creditSprites[i]+8, creditSprites[i+1], creditSprites[i+2]+1 + tempChar8, creditSprites[i+3], (i<<2)+4);
+                                oam_spr(creditSprites[i], creditSprites[i+1]+8, creditSprites[i+2]+16 + tempChar8, creditSprites[i+3], (i<<2)+8);
+                                oam_spr(creditSprites[i]+8, creditSprites[i+1]+8, creditSprites[i+2]+17 + tempChar8, creditSprites[i+3], (i<<2)+12);
+                            }
+
+                        } else {
+                            oam_clear();
+                        }
 
                         // If Start is pressed now, and was not pressed before...
                         if (controllerState & PAD_START && !(lastControllerState & PAD_START)) {
@@ -271,7 +297,16 @@ void main(void) {
                         ppu_wait_nmi();
 
                         set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
-                        set_chr_bank_1(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+
+                        #if IS_KIOSK == 1
+                            ++resetTimer;
+
+                            // How long to wait until dumping, frames * seconds * minutes
+                            if (resetTimer > (60 * 60 * TIMEOUT_MINUTES)) {
+                                reset();
+                            }
+                        #endif
+
                     }
 
                     fade_out();
