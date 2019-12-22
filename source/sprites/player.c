@@ -56,8 +56,8 @@ const unsigned char* preserverText[] = {
                                 "                              "
 
                                 "wait... these are my pills! My"
-                                "name is on the bottle. Just   "
-                                "as my psychiatrist prescribed."
+                                "name is on the bottle. How did"
+                                "they get here?                "
 
                                 "Weird... as I collect them, I "
                                 "feel I can stay afloat just a "
@@ -100,7 +100,7 @@ const unsigned char* preserverText[] = {
                                 
                                 ,
 
-                                "This thing has a game         "
+                                "This raft has a game          "
                                 "cartridge pattern on it...    "
                                 "                              "
                                 
@@ -420,7 +420,7 @@ const unsigned char* woodGame =
 
                                 "This reminds me that I still  "
                                 "need to find out what happens "
-                                "to Chloe Price in my game.    "
+                                "to Chloe Price.               "
 
                                 "One more reason to keep       "
                                 "treading water...";
@@ -431,11 +431,11 @@ const unsigned char* woodGame2 =
                                 "                              "
                                 
                                 "It reminds me that I still    "
-                                "never beat Final Fantasy 9. I "
-                                "want to do that still.        "
+                                "never beat Final Fantasy 9.   "
+                                "                              "
                                 
-                                "I guess I can keep floating to"
-                                "one day do that.";
+                                "I guess I can keep floating   "
+                                "until I play through it.";
 
 const unsigned char* woodBook = 
                                 "This driftwood has a pattern  "
@@ -474,9 +474,13 @@ const unsigned char* woodTv =
                                 "like a TV on it...            "
                                 "                              "
 
-                                "I can't drift under without   "
-                                "finding out who survives the  "
-                                "end of that show!";
+                                "I still have so many series   "
+                                "to catch up on.               "
+                                "                              "
+                                
+                                "Maybe it's not the best       "
+                                "reason to stay afloat, but    "
+                                "it's still something.";
 
 const unsigned char* woodTv2 = 
                                 "This driftwood has a pattern  "
