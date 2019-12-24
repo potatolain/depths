@@ -99,6 +99,10 @@ void update_hud(void) {
     screenBuffer[i++] = 2;
     screenBuffer[i++] = tempChar1;
     screenBuffer[i++] = tempChar2;
+    // This is an absolute hack... something's writing to this during screen transitions and I can't be arsed to fix it for real.
+    screenBuffer[i++] = MSB(0x2b00);
+    screenBuffer[i++] = LSB(0x2b00);
+    screenBuffer[i++] = 0xf2;
     screenBuffer[i++] = NT_UPD_EOF;
     set_vram_update(screenBuffer);
 
