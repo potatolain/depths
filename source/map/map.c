@@ -250,10 +250,12 @@ void draw_current_map_to_nametable(int nametableAdr, int attributeTableAdr, unsi
             bufferIndex = 0;
             tempArrayIndex = NAMETABLE_UPDATE_PREFIX_LENGTH;
             // Bunch of messy-looking stuff that tells neslib where to write this to the nametable, and how.
-            mapScreenBuffer[0] = MSB(currentMemoryLocation) | NT_UPD_HORZ;
-            mapScreenBuffer[1] = LSB(currentMemoryLocation);
-            mapScreenBuffer[2] = 65;
-            mapScreenBuffer[64 + NAMETABLE_UPDATE_PREFIX_LENGTH + 1] = NT_UPD_EOF;
+            //if (i != 191) {
+                mapScreenBuffer[0] = MSB(currentMemoryLocation) | NT_UPD_HORZ;
+                mapScreenBuffer[1] = LSB(currentMemoryLocation);
+                mapScreenBuffer[2] = 64;
+                mapScreenBuffer[64 + NAMETABLE_UPDATE_PREFIX_LENGTH + 0] = NT_UPD_EOF;
+            //}
             set_vram_update(mapScreenBuffer);
             ppu_wait_nmi();
             if (xScrollPosition != -1) {
@@ -698,7 +700,7 @@ void do_scroll_screen_transition(void) {
         // Now, draw back to our original nametable...
         ppu_wait_nmi();
         split_y(256, 240 - (otherLoopIndex));
-        clear_asset_table(1);
+        clear_asset_table(1); 
 
         yScrollPosition = 240 - otherLoopIndex;
         draw_current_map_to_nametable(NAMETABLE_A, NAMETABLE_A_ATTRS, 0);
