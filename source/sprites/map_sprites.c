@@ -86,6 +86,8 @@ void update_map_sprites(void) {
         }
     }
 
+    oam_spr(SPRITE_OFFSCREEN, SPRITE_OFFSCREEN, 0, 0, 240);
+
     // To save some cpu time, we only update sprites every other frame - even sprites on even frames, odd sprites on odd frames.
     for (i = 0; i < MAP_MAX_SPRITES; ++i) {
         currentMapSpriteIndex = i << MAP_SPRITE_DATA_SHIFT;
@@ -115,7 +117,7 @@ void update_map_sprites(void) {
             currentSpriteFullTileCollisionWidth = currentSpriteFullWidth - (2*SPRITE_TILE_HITBOX_OFFSET);
 
         }
-
+        
 
         if (currentMapSpriteData[currentMapSpriteIndex + MAP_SPRITE_DATA_POS_TYPE] == SPRITE_TYPE_OFFSCREEN) {
             // Hide it and move on.
@@ -332,6 +334,19 @@ void update_map_sprites(void) {
                 tempMapSpriteIndex,
                 oamMapSpriteIndex + 12
             );
+
+
+            switch (currentSpriteTileId) {
+                case 0xe6:
+                case 0xa0:
+                case 0xa2:
+                case 0xa8:
+                case 0xca:
+                    oam_spr(sprX8 + 4, sprY8 + 2, 0xd3, 0, 244);
+                    oam_spr(sprX8 + 4, sprY8 + 6, 0xd3, 0, 240);
+                    break;
+                // else do nothing
+            }
 
 
         }
