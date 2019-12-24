@@ -69,7 +69,7 @@ void draw_credits_screen(void) {
     set_chr_bank_1(CHR_BANK_SPRITES);
 
     // Add whatever you want here; NTADR_A just picks a position on the screen for you. Your options are 0, 0 to 32, 30
-    put_str(NTADR_A(12, 2), " Credits ");
+    put_str(NTADR_A(3, 2), " Depths ");
 
     put_str(NTADR_A(3, 6), "Game Design, Music + Art");
     put_str(NTADR_A(5, 8), gameAuthor);
