@@ -134,9 +134,11 @@ void draw_title_screen_real(void) {
 
 	put_str(NTADR_A(2, 26), "https://depths.nes.science");
 	
-	put_str(NTADR_A(2, 28), "Copyright");
-	put_str(NTADR_A(12, 28), currentYear);
-	put_str(NTADR_A(17, 28), gameAuthor);
+	vram_adr(NTADR_A(3, 28));
+	vram_put(0xeb);
+	
+	put_str(NTADR_A(4, 28), currentYear);
+	put_str(NTADR_A(9, 28), "Christopher Parker");
 
 	// put_str(NTADR_A(10, 16), "Press Start!");
 	put_str(NTADR_A(10, 20), "Peaceful Game");
