@@ -83,7 +83,7 @@ void dump_stats(void) {
     // you will have to hide all sprites, then put them back after. 
     ppu_on_bg();
 
-	banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start);
+	banked_call(PRG_BANK_MENU_INPUT_HELPERS, wait_for_start_and_boot);
 	reset();
 
 }
@@ -177,14 +177,18 @@ void draw_title1(void) {
 	screenBuffer[i++] = tileId;
 
 void handle_title_input(void) {
+	tempChar9 = pad_trigger(0);
+
 
 	++tempChara;
+	if (titlePhase == 0 && tempChar9 == (PAD_START | PAD_UP | PAD_A)) {
+		controllerState = tempChar9;
+		dump_stats();
+	}
 	if (titlePhase == 0 && tempChara == 192) {
 		++titlePhase;
 		draw_title_screen_real();
 	}
-	tempChar9 = pad_trigger(0);
-
 
 
 	if (titlePhase == 1) {
