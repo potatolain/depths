@@ -166,6 +166,7 @@ void draw_title1(void) {
 	vram_adr(NAMETABLE_A);
 	vram_unrle(title_1);
 
+	resetTimer = 0;
 	ppu_on_all();
 	fade_in();
 
@@ -218,6 +219,13 @@ void handle_title_input(void) {
 			oam_spr(titleSprites[i]+8, titleSprites[i+1]+8, titleSprites[i+2]+17 + tempChar8, titleSprites[i+3], (i<<2)+12);
 		}
 
+		++resetTimer;
+
+		// Kick back to the first load screen every 2 mins or so.
+		// NOTE: Something's making this only run every other frame, so I'm doing every 30 "frames" instead of 60
+		if (resetTimer > (60 * 60 * 1)) {
+			reset();
+		}
 	}
 
 	if (titlePhase == 1 && tempChar9 & (PAD_START|PAD_A)) {
@@ -238,6 +246,20 @@ void handle_title_input(void) {
 		draw_title1();
 		return;
 	}
+#if IS_KIOSK == 1
+	if (titlePhase == 2) {
+		++resetTimer;
+
+		// Kick back to the first load screen every 2 mins or so.
+		// NOTE: Something's making this only run every other frame, so I'm doing every 30 "frames" instead of 60
+		if (resetTimer > (60 * 60 * 1)) {
+			reset();
+		}
+
+	}
+#endif
+
+
 	if (titlePhase == 2 && tempChar9 & (PAD_START|PAD_A)) {
 		gameState = GAME_STATE_POST_TITLE;
 		sfx_play(SFX_CLICKY, SFX_CHANNEL_1);

@@ -36,7 +36,6 @@ const unsigned char creditSprites[] = {
 	22*8, 18*8, 0xcc, 0
 };
 
-
 // Method to set a bunch of variables to default values when the system starts up.
 // Note that if variables aren't set in this method, they will start at 0 on NES startup.
 void initialize_variables(void) {
@@ -71,6 +70,8 @@ void initialize_variables(void) {
     // Little bit of generic initialization below this point - we need to set
     // The system up to use a different hardware bank for sprites vs backgrounds.
     bank_spr(1);
+
+    resetTimer = 0;
 }   
 
 void main(void) {
