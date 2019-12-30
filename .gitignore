@@ -28,3 +28,5 @@ _pdf
 demostuff/blopper/*
 rom/*.bin
 rom/*Details.txt
+rom/*.exe
+rom/*.dll

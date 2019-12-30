@@ -24,6 +24,7 @@ MAIN_LINKER=./tools/cc65/bin/ld65
 SPACE_CHECKER=tools/nessc/nessc
 SFX_CONVERTER=tools/neslib_famitracker/tools/nsf2data
 AFTER_SFX_CONVERTER=mv sound/sfx/sfx.s sound/sfx/generated/sfx.s
+READNES=tools/readnes3/readnes3
 
 # Built-in tools: 
 CHR2IMG=tools/chr2img/chr2img
@@ -156,3 +157,8 @@ run:
 
 space_check:
 	$(SPACE_CHECKER) rom/$(ROM_NAME).nes
+
+write_prep:
+	$(READNES) rom/$(ROM_NAME).nes
+	# This always poops out an error, so just ignore it.
+	@explorer rom || true
