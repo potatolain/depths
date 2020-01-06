@@ -181,10 +181,13 @@ void handle_title_input(void) {
 
 
 	++tempChara;
+
+	#if IS_KIOSK
 	if (titlePhase == 0 && tempChar9 == (PAD_START | PAD_UP | PAD_A)) {
 		controllerState = tempChar9;
 		dump_stats();
 	}
+	#endif
 	if (titlePhase == 0 && tempChara == 192) {
 		++titlePhase;
 		draw_title_screen_real();
