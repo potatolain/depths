@@ -1,5 +1,7 @@
 # Depths
 
+NOTE: Yes, the github screenshots are out of date now. I'll make some new ones soon!
+
 ![blah](demostuff/ld44_003b.png)
 
 Depths is a game about survival. 
