@@ -301,7 +301,7 @@ const unsigned char* straightShot =
 
                                 "Just swim straight there, and "
                                 "avoid the current! It's a long"
-                                "swim, but can do it.          "
+                                "swim, but you can do it.      "
 
                                 "I believe in you, human!";
 
