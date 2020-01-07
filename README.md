@@ -46,8 +46,8 @@ for the NES.
 ## Magfest?
 
 This game appeared at magfest 2020! As such, I made some new enhnacements to the game to 
-make it more interesting. The original version is still available on my site and the Ludum Dare page. This version
-became the final version in the `release` branch.
+make it more interesting. The original Ludum Dare version is still available on my site and the Ludum Dare page. 
+(As well as in the `master` branch) Changes since then have been made to the `release` branch. 
 
 # A Note on git history
 
