@@ -43,12 +43,9 @@ for the NES.
 
 ## Magfest?
 
-This game might very well appear at magfest 2020! As such, I'm making some new enhnacements to the game to 
+This game appeared at magfest 2020! As such, I made some new enhnacements to the game to 
 make it more interesting. The original version is still available on my site and the Ludum Dare page. This version
-is available to play here: [MAGFest version](https://s3.amazonaws.com/cpprograms-nes-games-https/ld44/magfest/ld44.ldjam1.nes)
-
-I'll probably add some information to my site/etc as the date gets closer. If you decided to poke around github, you get
-to see things sooner!
+became the final version in the `release` branch.
 
 # A Note on git history
 

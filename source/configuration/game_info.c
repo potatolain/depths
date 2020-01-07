@@ -2,5 +2,5 @@
 // the credits, and anywhere else you fancy!
 const unsigned char gameName[] = "Depths";
 const unsigned char gameAuthor[] = "@cppchriscpp";
-const unsigned char gameAuthorContact[] = "MAGFest Release";
+const unsigned char gameAuthorContact[] = "blurhg";
 const unsigned char currentYear[] = "2020";
