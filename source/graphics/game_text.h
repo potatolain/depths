@@ -8,7 +8,7 @@
 #define PRG_BANK_GAME_TEXT 1
 
 // The arrow text to show when we have text to continue showing...
-#define SPRITE_TILE_ID_TEXT_ARROW 0xc2
+#define SPRITE_TILE_ID_TEXT_ARROW 0x82
 
 // The oam id for the tile to be used.
 #define TEXT_ARROW_OAM_ID 0x04

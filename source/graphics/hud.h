@@ -16,7 +16,7 @@
 #define HUD_TILE_BORDER_HORIZONTAL 0xe5
 #define HUD_TILE_BORDER_VERTICAL 0xe4
 
-#define HUD_SPRITE_ZERO_TILE_ID 0xfb
+#define HUD_SPRITE_ZERO_TILE_ID 0xc8
 
 // Draw the HUD
 void draw_hud(void);

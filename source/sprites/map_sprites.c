@@ -342,8 +342,8 @@ void update_map_sprites(void) {
                 case 0xa2:
                 case 0xa8:
                 case 0xca:
-                    oam_spr(sprX8 + 4, sprY8 + 2, 0xd3, 0, 244);
-                    oam_spr(sprX8 + 4, sprY8 + 6, 0xd3, 0, 240);
+                    oam_spr(sprX8 + 4, sprY8 + 2, 0x93, 0, 244);
+                    oam_spr(sprX8 + 4, sprY8 + 6, 0x93, 0, 240);
                     break;
                 // else do nothing
             }
