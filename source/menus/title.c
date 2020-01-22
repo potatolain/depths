@@ -277,12 +277,10 @@ void handle_title_input(void) {
 		return;
 	}
 
-	// FIXME This approach completely doesn't work; do something else.
-    // set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
-	/*if ((frameCount >> 6) & 0x01) {
-		set_vram_update(main_ascii__water1);
+	if ((frameCount >> 6) & 0x01) {
+		bank_bg(0);
 	} else {
-		//set_vram_update(main_ascii__water2);
-	}*/
+		bank_bg(1);
+	}
 
 }

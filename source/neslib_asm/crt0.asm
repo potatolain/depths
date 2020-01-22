@@ -23,7 +23,7 @@ FT_SFX_STREAMS			= 4			;number of sound effects played at once, 1..4
 
 	.export _frameCount
 
-	.export _main_ascii, _main_tiles, _main_sprites, _main_ascii__water1, _main_ascii__water2, _main_ascii__rocks1, _main_ascii__rocks2
+	.export _main_ascii, _main_tiles, _main_sprites, _main_tiles2
 
 
 FT_BASE_ADR=$0100			;page in RAM, should be $xx00
@@ -288,36 +288,13 @@ detectNTSC:
 
 .segment "ROM_06"
 	_main_tiles:
-		.incbin "graphics/tiles_new.chr"
+		.incbin "graphics/tiles_new_final.chr"
+	_main_tiles2:
 	_main_sprites:
-		.incbin "graphics/sprites.chr"
+		.incbin "graphics/tiles_new2_final.chr"
 	_main_ascii:
 		.incbin "graphics/ascii1.chr"
 
-
-	_main_ascii__water2:
-		; Set up as a full update; set location, length, et al
-		;.byte (>($800) | $40) ; NT_UPD_HORZ
-		.byte $48
-		;.byte <($800)
-		.byte $0
-		.byte 128
-		.incbin "graphics/ascii2__water.chr"
-		.byte $ff ; NT_UPD_EOF
-	_main_ascii__rocks2:
-		.incbin "graphics/ascii2__rocks.chr"
-
-	_main_ascii__water1:
-		; Set up as a full update; set location, length, et al
-		;.byte (>($800) | $40) ; NT_UPD_HORZ
-		.byte $48
-		;.byte <($800)
-		.byte $00
-		.byte 128
-		.incbin "graphics/ascii1__water.chr"
-		.byte $ff ; NT_UPD_EOF
-	_main_ascii__rocks1:
-		.incbin "graphics/ascii1__rocks.chr"
 
 /*
 .segment "CHR_00"

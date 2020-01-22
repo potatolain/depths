@@ -149,9 +149,10 @@ void main(void) {
                 banked_call(PRG_BANK_PLAYER_SPRITE, handle_player_movement);
                 banked_call(PRG_BANK_PLAYER_SPRITE, update_player_sprite);
 
-                set_chr_tile_bank();
+                // set_chr_tile_bank();
 
                 // set_chr_bank_0(chrBankTiles);
+                bank_bg((frameCount >> 6) & 0x01);
                 tempChar1 = get_ppu_mask();
 
                 if (isStorming) {
@@ -299,6 +300,7 @@ void main(void) {
 
                         // FIXME
                         // set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+                        bank_bg((frameCount >> 6) & 0x01);
 
                         #if IS_KIOSK == 1
                             ++resetTimer;

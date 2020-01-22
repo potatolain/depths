@@ -2,7 +2,7 @@
 #define PRG_BANK_PLAYER_SPRITE 4
 
 // Top-left tile of the sprite of the player facing downward.
-#define PLAYER_SPRITE_TILE_ID 0x00
+#define PLAYER_SPRITE_TILE_ID 0x88
 
 // The id of the first sprite in the 4 sprites comprising the player. (out of 64 total sprites)
 #define PLAYER_SPRITE_INDEX 0x10
