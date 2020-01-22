@@ -23,6 +23,7 @@ FT_SFX_STREAMS			= 4			;number of sound effects played at once, 1..4
 
 	.export _frameCount
 
+	.export _main_ascii, _main_tiles, _main_sprites, _main_ascii__water1, _main_ascii__water2, _main_ascii__rocks1, _main_ascii__rocks2
 
 
 FT_BASE_ADR=$0100			;page in RAM, should be $xx00
@@ -126,8 +127,9 @@ RLE_BYTE	=TEMP+3
 
     .byte $4e,$45,$53,$1a
 	.byte <NES_PRG_BANKS
-	.byte <NES_CHR_BANKS
-	.byte $12
+	.byte 0
+	; .byte <NES_CHR_BANKS
+	.byte $21
 	.byte 0
 	.res 8,0
 
@@ -260,11 +262,11 @@ detectNTSC:
 	sta PPU_SCROLL			
 	sta PPU_OAM_ADDR
 
-	lda #%11111
-	mmc1_register_write MMC1_CTRL
-	lda #0
-	mmc1_register_write MMC1_PRG
-	mmc1_register_write MMC1_CHR0
+	;lda #%11111
+	;mmc1_register_write MMC1_CTRL
+	;lda #0
+	;mmc1_register_write MMC1_PRG
+	;mmc1_register_write MMC1_CHR0
 
 	lda #0
 	ldx #0
@@ -283,6 +285,41 @@ detectNTSC:
 	.include "source/neslib_asm/neslib.asm"
 	.include "source/graphics/palettes.asm"
 
+
+.segment "ROM_06"
+	_main_tiles:
+		.incbin "graphics/tiles_new.chr"
+	_main_sprites:
+		.incbin "graphics/sprites.chr"
+	_main_ascii:
+		.incbin "graphics/ascii1.chr"
+
+
+	_main_ascii__water2:
+		; Set up as a full update; set location, length, et al
+		;.byte (>($800) | $40) ; NT_UPD_HORZ
+		.byte $48
+		;.byte <($800)
+		.byte $0
+		.byte 128
+		.incbin "graphics/ascii2__water.chr"
+		.byte $ff ; NT_UPD_EOF
+	_main_ascii__rocks2:
+		.incbin "graphics/ascii2__rocks.chr"
+
+	_main_ascii__water1:
+		; Set up as a full update; set location, length, et al
+		;.byte (>($800) | $40) ; NT_UPD_HORZ
+		.byte $48
+		;.byte <($800)
+		.byte $00
+		.byte 128
+		.incbin "graphics/ascii1__water.chr"
+		.byte $ff ; NT_UPD_EOF
+	_main_ascii__rocks1:
+		.incbin "graphics/ascii1__rocks.chr"
+
+/*
 .segment "CHR_00"
 
 	; We just put the ascii tiles into both sprites and tiles. If you want to get more clever you could do something else.
@@ -353,7 +390,7 @@ detectNTSC:
 	.incbin "graphics/tiles.chr"
 .segment "CHR_1F"
 	.incbin "graphics/tiles.chr"
-
+*/
 ; MMC1 needs a reset stub in every bank that will put us into a known state. This defines it for all banks.
 .repeat (SYS_PRG_BANKS-1), I
 	resetstub_in .concat("STUB_", .sprintf("%02X", I))

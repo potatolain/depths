@@ -44,8 +44,9 @@ void dump_stats(void) {
 	pal_spr(titlePalette);
     scroll(0, 0);
 
-	set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_MENU);
+	// set_chr_bank_0(CHR_BANK_MENU);
+    //set_chr_bank_1(CHR_BANK_MENU);
+	load_chr_bank_menu();
 
     put_str(NTADR_A(3, 2), " Game Stats ");
 
@@ -95,8 +96,9 @@ void draw_title_screen(void) {
 	pal_bg(titlePalette);
 	pal_spr(titlePalette);
 
-	set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_MENU);
+	// set_chr_bank_0(CHR_BANK_MENU);
+    // set_chr_bank_1(CHR_BANK_MENU);
+	load_chr_bank_menu();
 	oam_clear();
 
 	vram_adr(NAMETABLE_A);
@@ -120,8 +122,9 @@ void draw_title_screen_real(void) {
 	pal_bg(titleAniPalette);
 	pal_spr(mainSpritePalette);
 
-	set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_SPRITES);
+	// set_chr_bank_0(CHR_BANK_MENU);
+    // set_chr_bank_1(CHR_BANK_SPRITES);
+	load_chr_bank_menu();
 	// clear_screen();
 	oam_clear();
 	vram_adr(NAMETABLE_A);
@@ -274,6 +277,12 @@ void handle_title_input(void) {
 		return;
 	}
 
-    set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+	// FIXME This approach completely doesn't work; do something else.
+    // set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+	/*if ((frameCount >> 6) & 0x01) {
+		set_vram_update(main_ascii__water1);
+	} else {
+		//set_vram_update(main_ascii__water2);
+	}*/
 
 }

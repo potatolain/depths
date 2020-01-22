@@ -20,7 +20,8 @@ _set_prg_bank:
     sta BP_BANK
 
     ; Write it to the reg (destroys a)
-    mmc1_register_write MMC1_PRG
+    ; mmc1_register_write MMC1_PRG
+    sta UNROM_PRG
     txa ; Old bank's back!
 
     rts
@@ -30,11 +31,13 @@ _get_prg_bank:
     rts
 
 _set_chr_bank_0:
-    mmc1_register_write MMC1_CHR0
+    ; FIXME
+    ; mmc1_register_write MMC1_CHR0
     rts
 
 _set_chr_bank_1:
-    mmc1_register_write MMC1_CHR1
+    ; FIXME
+    ; mmc1_register_write MMC1_CHR1
     rts
 
 ; Both of these just set/unset a varible used in `neslib.asm` to trigger this during nmi.
@@ -48,10 +51,11 @@ _unset_nmi_chr_tile_bank:
     rts
 
 _set_mirroring:
+    ; FIXME: Remove all use
     ; Limit this to mirroring bits, so we can add our bytes safely.
-    and #%00000011
+    ; and #%00000011
     ; Now, set this to have 4k chr banking, and not mess up which prg bank is which.
-    ora #%00011100
+    ; ora #%00011100
     ; Bombs away!
-    mmc1_register_write MMC1_CTRL
+    ; mmc1_register_write MMC1_CTRL
     rts

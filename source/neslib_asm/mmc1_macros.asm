@@ -3,6 +3,9 @@ MMC1_CHR0	=$a000
 MMC1_CHR1	=$c000
 MMC1_PRG	=$e000
 
+; Really should be its own file, but meh
+UNROM_PRG = $8000
+
 
 ; MMC1 needs a reset stub in every bank that will put us into a known state. This defines it for all banks.
 .macro resetstub_in segname

@@ -151,7 +151,7 @@ void main(void) {
 
                 set_chr_tile_bank();
 
-                set_chr_bank_0(chrBankTiles);
+                // set_chr_bank_0(chrBankTiles);
                 tempChar1 = get_ppu_mask();
 
                 if (isStorming) {
@@ -297,7 +297,8 @@ void main(void) {
 
                         ppu_wait_nmi();
 
-                        set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
+                        // FIXME
+                        // set_chr_bank_0(CHR_BANK_MENU + ((frameCount >> 6) & 0x01));
 
                         #if IS_KIOSK == 1
                             ++resetTimer;

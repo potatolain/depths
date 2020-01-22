@@ -1252,7 +1252,8 @@ _music_play:
 	pha
 	lda #SOUND_BANK
 	sta BP_BANK
-	mmc1_register_write MMC1_PRG
+	; mmc1_register_write MMC1_PRG
+	sta UNROM_PRG
 	txa ; bring back the song number!
 
 
@@ -1270,7 +1271,8 @@ _music_play:
 	; Remember when we stored the old bank into BP_BANK and swapped? Time to roll back.
 	pla
 	sta BP_BANK
-	mmc1_register_write MMC1_PRG
+	sta UNROM_PRG
+	; mmc1_register_write MMC1_PRG
 
 	rts
 
@@ -1319,7 +1321,8 @@ _sfx_play:
 	pha
 	lda #SOUND_BANK
 	sta BP_BANK
-	mmc1_register_write MMC1_PRG
+	; mmc1_register_write MMC1_PRG
+	sta UNROM_PRG
 	tya ; bring back the song number!
 
 	and #$03
@@ -1332,7 +1335,8 @@ _sfx_play:
 	; Remember when we stored the old bank into BP_BANK and swapped? Time to roll back.
 	pla
 	sta BP_BANK
-	mmc1_register_write MMC1_PRG
+	; mmc1_register_write MMC1_PRG
+	sta UNROM_PRG
 
 	rts
 

@@ -1,5 +1,8 @@
 #include "source/library/bank_helpers.h"
 #include "source/menus/error.h"
+#include "source/globals.h"
+#include "source/neslib_asm/neslib.h"
+#include "source/configuration/system_constants.h"
 
 ZEROPAGE_DEF(char, bankLevel);
 ZEROPAGE_ARRAY_DEF(unsigned char, bankBuffer, MAX_BANK_DEPTH);
@@ -28,4 +31,22 @@ void bank_pop(void) {
     if (bankLevel > 0) {
         set_prg_bank(bankBuffer[bankLevel-1]);
     }
+}
+
+
+void load_chr_bank_ingame(void) {
+    bank_push(6);
+    vram_adr(PPU_PATTERN_TABLE_0_ADDRESS);
+    vram_write((unsigned char*)main_tiles, PPU_PATTERN_TABLE_LENGTH);
+    vram_write((unsigned char*)main_sprites, PPU_PATTERN_TABLE_LENGTH);
+    bank_pop();
+}
+
+void load_chr_bank_menu(void) {
+    bank_push(6);
+    vram_adr(PPU_PATTERN_TABLE_0_ADDRESS);
+    vram_write((unsigned char*)main_ascii, PPU_PATTERN_TABLE_LENGTH);
+    vram_write((unsigned char*)main_sprites, PPU_PATTERN_TABLE_LENGTH);
+    bank_pop();
+
 }

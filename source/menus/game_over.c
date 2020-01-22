@@ -55,8 +55,9 @@ void draw_game_over_screen(void) {
 	pal_spr(titlePalette);
     scroll(0, 0);
 
-	set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_MENU);
+    load_chr_bank_menu();
+	// set_chr_bank_0(CHR_BANK_MENU);
+    // set_chr_bank_1(CHR_BANK_MENU);
 
     vram_adr(NAMETABLE_A);
     vram_unrle(game_over);

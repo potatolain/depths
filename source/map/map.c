@@ -32,8 +32,11 @@ unsigned char mapScreenBuffer[0x55];
 
 void init_map(void) {
     // Make sure we're looking at the right sprite and chr data, not the ones for the menu.
-    set_chr_bank_0(chrBankTiles);
-    set_chr_bank_1(CHR_BANK_SPRITES);
+    // set_chr_bank_0(chrBankTiles);
+    // set_chr_bank_1(CHR_BANK_SPRITES);
+    ppu_off();
+    load_chr_bank_ingame();
+    ppu_on_all();
 
     // Also set the palettes to the in-game palettes.
     pal_bg(mainBgPalette);
@@ -41,7 +44,7 @@ void init_map(void) {
 
     // Do some trickery to make the HUD show up at the top of the screen, with the map slightly below.
     scroll(0, 240-HUD_PIXEL_HEIGHT);
-    set_mirroring(MIRROR_MODE_VERTICAL);
+    //set_mirroring(MIRROR_MODE_VERTICAL);
 }
 
 // Reusing a few temporary vars for the sprite function below.

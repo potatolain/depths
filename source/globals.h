@@ -83,6 +83,15 @@ SRAM_ARRAY_EXTERN(unsigned int, difficultyStartCount, 3);
 SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
 
 
+extern const unsigned char main_ascii[4096]; 
+extern const unsigned char main_tiles[4096];
+extern const unsigned char main_sprites[4096];
+
+extern unsigned char main_ascii__water1[];
+extern unsigned char main_ascii__water2[]; 
+extern unsigned char main_ascii__rocks1[]; 
+extern unsigned char main_ascii__rocks2[];
+
 // TODO: There might be a nicer home for these
 // Get the absolute value of a number, the lazy person's way.
 #define ABS(x) ((x) > 0 ? x : 0-(x))
@@ -91,7 +100,7 @@ SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
 #define SET_ADDR_VALUE(addr, value) *(unsigned char*)(addr) = value
 
 
-#define DEBUG 0
+#define DEBUG 1
 #define IS_KIOSK 0
 
 // In kiosk mode, how long until we kick you out if you don't do any inputs. Applies to both the "you died" screen and game w/ no input at all.

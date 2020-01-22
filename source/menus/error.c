@@ -29,8 +29,7 @@ void _print_static_screen(void) {
 
     ppu_wait_frame();
     ppu_off();
-    set_chr_bank_0(CHR_BANK_MENU);
-    set_chr_bank_1(CHR_BANK_MENU);
+    load_chr_bank_menu();
     pal_bg(errorPalette);
     pal_spr(errorPalette);
     scroll(0, 0);

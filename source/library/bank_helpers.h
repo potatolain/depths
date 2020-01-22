@@ -55,6 +55,10 @@ void __fastcall__ set_nmi_chr_tile_bank(unsigned char bank);
 void __fastcall__ unset_nmi_chr_tile_bank(void);
 
 
+
+void load_chr_bank_ingame(void);
+void load_chr_bank_menu(void);
+
 // A few defines to make common tasks simpler.
 
 // The zero page is 255 bytes of space at the beginning of RAM that is faster to access. The space is shared with rest of
