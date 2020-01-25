@@ -13,16 +13,22 @@
 .export _set_nmi_chr_tile_bank, _unset_nmi_chr_tile_bank
 .export _set_mirroring
 
-_set_prg_bank:
-    ; Grab old bank and store it temporarily.
-    ldx BP_BANK
-    ; Store new bank into BP_BANK
-    sta BP_BANK
+; UNROM quirk.. you have to write the value to a location that stores that same value. So, lets set up a small LUT
+bank_lookup: 
+    .byte 0, 1, 2, 3, 4, 5, 6, 7
 
-    ; Write it to the reg (destroys a)
-    ; mmc1_register_write MMC1_PRG
-    sta UNROM_PRG
-    txa ; Old bank's back!
+_set_prg_bank:
+    tax
+    ; Grab old bank and store it temporarily in a. We don't touch it again, so we'll return it!
+    lda BP_BANK
+    pha
+    ; Store new bank into BP_BANK
+    stx BP_BANK
+    txa
+
+    sta bank_lookup, x 
+
+    pla
 
     rts
 

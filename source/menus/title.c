@@ -110,10 +110,10 @@ void draw_title_screen(void) {
 }
 
 const unsigned char titleSprites[] = {
-	10*8, 14*8, 0xcc, 0,
-	14*8, 12*8, 0x00, 0,
-	10*8, 10*8, 0xe0, 2, 
-	20*8, 10*8, 0xe0, 2,
+	10*8, 14*8, 0xc4, 0,
+	14*8, 12*8, 0xc0, 0,
+	10*8, 10*8, 0x6e, 2, 
+	20*8, 10*8, 0x6e, 2,
 };
 
 void draw_title_screen_real(void) {
@@ -217,7 +217,7 @@ void handle_title_input(void) {
 		screenBuffer[i++] = NT_UPD_EOF;
 		set_vram_update(screenBuffer);
 		for (i = 0; i != 16; i += 4) {
-			if (titleSprites[i+2] != 0xe0) {
+			if (titleSprites[i+2] != 0x6e) {
 				tempChar8 = ((frameCount >> 6) & 0x01) * 2;
 			} else {
 				tempChar8 = 0;

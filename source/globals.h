@@ -84,13 +84,9 @@ SRAM_ARRAY_EXTERN(unsigned int, difficultyWinCount, 3);
 
 
 extern const unsigned char main_ascii[4096]; 
+extern const unsigned char main_ascii2[4096];
 extern const unsigned char main_tiles[4096];
 extern const unsigned char main_sprites[4096];
-
-extern unsigned char main_ascii__water1[];
-extern unsigned char main_ascii__water2[]; 
-extern unsigned char main_ascii__rocks1[]; 
-extern unsigned char main_ascii__rocks2[];
 
 // TODO: There might be a nicer home for these
 // Get the absolute value of a number, the lazy person's way.

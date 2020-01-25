@@ -46,7 +46,9 @@ void load_chr_bank_menu(void) {
     bank_push(6);
     vram_adr(PPU_PATTERN_TABLE_0_ADDRESS);
     vram_write((unsigned char*)main_ascii, PPU_PATTERN_TABLE_LENGTH);
-    vram_write((unsigned char*)main_sprites, PPU_PATTERN_TABLE_LENGTH);
+    bank_pop();
+    bank_push(0);
+    vram_write((unsigned char*)main_ascii2, PPU_PATTERN_TABLE_LENGTH);
     bank_pop();
 
 }

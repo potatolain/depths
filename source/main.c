@@ -31,9 +31,9 @@ void set_chr_tile_bank(void) {
 }
 
 const unsigned char creditSprites[] = {
-	8*8, 12*8, 0xcc, 0,
-	16*8, 12*8, 0x00, 0,
-	22*8, 18*8, 0xcc, 0
+	8*8, 12*8, 0xc4, 0,
+	16*8, 12*8, 0xc0, 0,
+	22*8, 18*8, 0xc4, 0
 };
 
 // Method to set a bunch of variables to default values when the system starts up.
