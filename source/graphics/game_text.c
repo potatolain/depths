@@ -38,8 +38,6 @@ void draw_game_text(void) {
     unsigned char buffer[132];
     sfx_play(SFX_BOOP, SFX_CHANNEL_4);
     bank_bg(0);
-    ppu_wait_nmi();
-    load_chr_bank_ingame_ascii();
 
     // Make sure we don't update the HUD at all while doing this.
     set_vram_update(NULL);
@@ -66,7 +64,9 @@ void draw_game_text(void) {
 
     // Drawing done; make sure we don't try to keep drawing it to save some time.
     set_vram_update(NULL);
+    load_chr_bank_ingame_ascii();
     bank_bg(1);
+    
 
     // Ok, now we build up the text of the actual thing.
     haveHitNull = FALSE;

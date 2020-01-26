@@ -81,7 +81,7 @@ void load_sprites(void) {
                     break;
                 default:
                     // Regular water, except with collision... yeah. idk.
-                    currentMap[spritePosition] = ((currentMap[spritePosition] & 0x3f) == 36 || (currentMap[spritePosition] & 0x3f) == 40 ? (64 + 36) : (64 + 8));
+                    currentMap[spritePosition] = ((currentMap[spritePosition] & 0x3f) == 36 || (currentMap[spritePosition] & 0x3f) == 16 ? (64 + 36) : (64 + 8));
                     break;
             }
 
