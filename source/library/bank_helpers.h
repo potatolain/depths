@@ -58,6 +58,8 @@ void __fastcall__ unset_nmi_chr_tile_bank(void);
 
 void load_chr_bank_ingame(void);
 void load_chr_bank_menu(void);
+void load_chr_bank_ingame_ascii_off(void);
+void load_chr_bank_ingame_ascii(void);
 
 // A few defines to make common tasks simpler.
 

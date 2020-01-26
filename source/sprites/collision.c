@@ -7,7 +7,11 @@ ZEROPAGE_DEF(unsigned char, collisionTemp);
 unsigned char test_collision(unsigned char tileId, unsigned char isPlayer) {
     // The top 2 bits of the tile id are the palette color. We don't care about that here, so skip them.
     collisionTemp = tileId & 0x3f;
+    // These aren't sprites. What was I thinking???
     if (collisionTemp >= FIRST_SOLID_SPRITE && collisionTemp <= LAST_SOLID_SPRITE) {
+        return 1;
+    }
+    if (collisionTemp == 8 || collisionTemp == 36) {
         return 1;
     }
     return 0;

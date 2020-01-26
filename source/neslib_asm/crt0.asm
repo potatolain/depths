@@ -23,7 +23,7 @@ FT_SFX_STREAMS			= 4			;number of sound effects played at once, 1..4
 
 	.export _frameCount
 
-	.export _main_ascii, _main_tiles, _main_sprites, _main_tiles2, _main_ascii2
+	.export _main_ascii, _main_tiles, _main_sprites, _main_tiles2, _main_ascii2, _header_ascii, _header_normal
 
 
 FT_BASE_ADR=$0100			;page in RAM, should be $xx00
@@ -294,6 +294,10 @@ detectNTSC:
 		.incbin "graphics/tiles_new2_final.chr"
 	_main_ascii:
 		.incbin "graphics/ascii1.chr"
+	_header_ascii:
+		.incbin "graphics/header_final_ascii.chr"
+	_header_normal:
+		.incbin "graphics/header_final_normal.chr"
 .segment "ROM_00"
 	_main_ascii2:
 		.incbin "graphics/ascii2.chr"

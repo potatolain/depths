@@ -555,15 +555,15 @@ const unsigned char* get_wood_text() {
 
     if (currentMapSpriteData[(currentMapSpriteIndex) + 13] == 0) {
         switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
-            case 0xa0:
+            case 0x44:
                 return woodBook;
-            case 0xa2:
+            case 0x46:
                 return woodGame;
-            case 0xa4:
+            case 0x48:
                 return woodMusic;
-            case 0xa6:
+            case 0x4a:
                 return woodPeople;
-            case 0xa8:
+            case 0x4c:
                 return woodTv;
 
             default: 
@@ -572,15 +572,15 @@ const unsigned char* get_wood_text() {
     } else {
 
         switch (currentMapSpriteData[(currentMapSpriteIndex) + MAP_SPRITE_DATA_POS_TILE_ID]) {
-            case 0xa0:
+            case 0x44:
                 return woodBook2;
-            case 0xa2:
+            case 0x46:
                 return woodGame2;
-            case 0xa4:
+            case 0x48:
                 return woodMusic2;
-            case 0xa6:
+            case 0x4a:
                 return woodPeople2;
-            case 0xa8:
+            case 0x4c:
                 return woodTv2;
 
             default: 

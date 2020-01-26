@@ -337,11 +337,11 @@ void update_map_sprites(void) {
 
 
             switch (currentSpriteTileId) {
-                case 0xe6:
-                case 0xa0:
-                case 0xa2:
-                case 0xa8:
-                case 0xca:
+                case 0x44:
+                case 0x46:
+                case 0xa4:
+                case 0x4c:
+                case 0x6e:
                     oam_spr(sprX8 + 4, sprY8 + 2, 0x93, 0, 244);
                     oam_spr(sprX8 + 4, sprY8 + 6, 0x93, 0, 240);
                     break;

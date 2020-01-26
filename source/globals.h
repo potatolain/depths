@@ -88,6 +88,9 @@ extern const unsigned char main_ascii2[4096];
 extern const unsigned char main_tiles[4096];
 extern const unsigned char main_sprites[4096];
 
+extern const unsigned char header_ascii[1536];
+extern const unsigned char header_normal[1536];
+
 // TODO: There might be a nicer home for these
 // Get the absolute value of a number, the lazy person's way.
 #define ABS(x) ((x) > 0 ? x : 0-(x))
