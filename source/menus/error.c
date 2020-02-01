@@ -20,7 +20,7 @@ const char* ERR_UNKNOWN_SPRITE_SIZE_EXPLANATION = "A sprite definition has a siz
 const char* ERR_GAME_TEXT_MISSING = "Game Text Missing";
 const char* ERR_GAME_TEXT_MISSING_EXPLANATION = "No game text was specified before calling draw_game_text. This is done  the trigger_game_text method.";
 
-char buffer[10];
+char errBuffer[10];
 
 // Separate function so we can put it into a separate prg bank, then call it below. See documentation with public function.
 void _print_static_screen(void) {
@@ -50,10 +50,10 @@ void _print_variable_data_and_exit(const char *errorId, const char *errorDescrip
     put_str(NTADR_A(2, 10), errorDescription);
 
     if (numberName != NULL) {
-        itoa(number, buffer);
+        itoa(number, errBuffer);
         put_str(NTADR_A(2, 20), numberName);
         vram_put(':'-0x20);
-        put_str(NTADR_A(2, 21), buffer);
+        put_str(NTADR_A(2, 21), errBuffer);
     }
     
     // Turn the screen back on

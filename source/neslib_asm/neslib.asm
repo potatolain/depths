@@ -49,11 +49,11 @@ nmi:
 
 @doUpdate:
 
-	lda nmiChrTileBank
-	cmp #NO_CHR_BANK 
-	beq @no_chr_chg
-		jsr _set_chr_bank_0
-	@no_chr_chg:
+	;lda nmiChrTileBank
+	;cmp #NO_CHR_BANK 
+	;beq @no_chr_chg
+	;	jsr _set_chr_bank_0
+	;@no_chr_chg:
 
 	lda #>OAM_BUF		;update OAM
 	sta PPU_OAM_DMA

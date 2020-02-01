@@ -18,6 +18,12 @@ unsigned char currentBank;
 
 #define ASCII_START 0xa0
 
+unsigned char buffer[132];
+
+unsigned int tableIndex;
+unsigned int charIndex;
+unsigned char scratchA, scratchB;
+
 void trigger_game_text(const unsigned char* string) {
     gameState = GAME_STATE_SHOWING_TEXT;
     currentText = (unsigned char*)string;
@@ -32,11 +38,37 @@ void set_char_at_buffer_index(void) {
     bank_pop();
 }
 
+CODE_BANK(6);
+#define ASCII_TABLE_START_POS (PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 1536))
+void load_chr_ascii_internal(void) {
+    tableIndex = ASCII_TABLE_START_POS;
+    buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
+    buffer[1] = LSB(tableIndex);
+    buffer[2] = 95;
+    buffer[3+95] = NT_UPD_EOF;
+    scratchA = 0;
+    set_vram_update(buffer);
+    for (charIndex = 0; charIndex != 1536; ++charIndex) {
+        buffer[3+(scratchA)] = header_ascii[charIndex];
+        if (scratchA == 94) {
+            set_vram_update(buffer);
+            ppu_wait_nmi();
+            set_vram_update(NULL);
+            tableIndex += 95;
+            buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
+            buffer[1] = LSB(tableIndex);
+            scratchA = (0-1);
+        }
+        ++scratchA;
+
+    }
+    set_vram_update(NULL);
+
+}
+
+CODE_BANK_POP();
 CODE_BANK(PRG_BANK_GAME_TEXT);
 void draw_game_text(void) {
-    // Creating a local variable on the stack for the HUD buffer here. It won't be fast, but we don't really need it to be.
-    unsigned char buffer[132];
-    sfx_play(SFX_BOOP, SFX_CHANNEL_4);
     bank_bg(0);
 
     // Make sure we don't update the HUD at all while doing this.
@@ -64,8 +96,23 @@ void draw_game_text(void) {
 
     // Drawing done; make sure we don't try to keep drawing it to save some time.
     set_vram_update(NULL);
-    load_chr_bank_ingame_ascii();
+    // load_chr_bank_ingame_ascii();
+    banked_call(6, load_chr_ascii_internal);
     bank_bg(1);
+    sfx_play(SFX_BOOP, SFX_CHANNEL_4);
+
+
+    // First, we clear the HUD using our current HUD tiles. Note that this tile must be blank in both chr banks.
+    // Any shared HUD elements (borders, etc) must also be present in both layouts.
+    buffer[0] = MSB(NAMETABLE_A + HUD_POSITION_START + SCREEN_WIDTH_TILES*2 + 1) | NT_UPD_HORZ;
+    buffer[1] = LSB(NAMETABLE_A + HUD_POSITION_START + SCREEN_WIDTH_TILES*2 + 1);
+    buffer[2] = 95;
+    // We reproduce this loop a few times because we want to stick with the local stack-based variable.
+    for (i = 3; i != 98; ++i) {
+        buffer[i] = HUD_TILE_BLANK;
+    }
+    buffer[i] = NT_UPD_EOF;
+
     
 
     // Ok, now we build up the text of the actual thing.
