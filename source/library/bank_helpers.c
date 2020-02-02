@@ -56,8 +56,8 @@ void load_chr_bank_menu(void) {
 void load_chr_bank_ingame_ascii(void) {
     ppu_off();
     bank_push(6);
-    vram_adr(PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 1536));
-    vram_write((unsigned char*)header_ascii, 1536);
+    vram_adr(PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 768));
+    vram_write((unsigned char*)header_ascii, 768);
     bank_pop();
     ppu_on_all();
 }
@@ -65,8 +65,8 @@ void load_chr_bank_ingame_ascii(void) {
 void load_chr_bank_ingame_ascii_off(void) {
     ppu_off();
     bank_push(6);
-    vram_adr(PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 1536));
-    vram_write((unsigned char*)header_normal, 1536);
+    vram_adr(PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 768));
+    vram_write((unsigned char*)header_normal, 768);
     bank_pop();
     // ppu_on_all();
     // There's other stuff the game needs to do in main.c, so leave this off.

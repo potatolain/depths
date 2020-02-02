@@ -88,8 +88,8 @@ extern const unsigned char main_ascii2[4096];
 extern const unsigned char main_tiles[4096];
 extern const unsigned char main_sprites[4096];
 
-extern const unsigned char header_ascii[1536];
-extern const unsigned char header_normal[1536];
+extern const unsigned char header_ascii[768];
+extern const unsigned char header_normal[768];
 
 // TODO: There might be a nicer home for these
 // Get the absolute value of a number, the lazy person's way.

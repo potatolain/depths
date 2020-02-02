@@ -39,22 +39,23 @@ void set_char_at_buffer_index(void) {
 }
 
 CODE_BANK(6);
-#define ASCII_TABLE_START_POS (PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 1536))
+#define ASCII_TABLE_START_POS (PPU_PATTERN_TABLE_1_ADDRESS + (4096 - 768))
+#define CHR_LIM 95
 void load_chr_ascii_internal(void) {
     tableIndex = ASCII_TABLE_START_POS;
     buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
     buffer[1] = LSB(tableIndex);
-    buffer[2] = 95;
-    buffer[3+95] = NT_UPD_EOF;
+    buffer[2] = CHR_LIM;
+    buffer[3+CHR_LIM] = NT_UPD_EOF;
     scratchA = 0;
     set_vram_update(buffer);
-    for (charIndex = 0; charIndex != 1536; ++charIndex) {
+    for (charIndex = 0; charIndex != 768; ++charIndex) {
         buffer[3+(scratchA)] = header_ascii[charIndex];
-        if (scratchA == 94) {
+        if (scratchA == (CHR_LIM-1)) {
             set_vram_update(buffer);
             ppu_wait_nmi();
             set_vram_update(NULL);
-            tableIndex += 95;
+            tableIndex += CHR_LIM;
             buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
             buffer[1] = LSB(tableIndex);
             scratchA = (0-1);
@@ -66,9 +67,40 @@ void load_chr_ascii_internal(void) {
 
 }
 
+// This is literally the same as the method above...
+// code reuse would be better, but at this point in development I'd rather have 
+// repeated code than complex code, and we aren't worried about rom space. Meh.
+void load_chr_normal_internal(void) {
+    tableIndex = ASCII_TABLE_START_POS;
+    buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
+    buffer[1] = LSB(tableIndex);
+    buffer[2] = CHR_LIM;
+    buffer[3+CHR_LIM] = NT_UPD_EOF;
+    scratchA = 0;
+    set_vram_update(buffer);
+    for (charIndex = 0; charIndex != 768; ++charIndex) {
+        buffer[3+(scratchA)] = header_normal[charIndex];
+        if (scratchA == (CHR_LIM-1)) {
+            set_vram_update(buffer);
+            ppu_wait_nmi();
+            set_vram_update(NULL);
+            tableIndex += CHR_LIM;
+            buffer[0] = MSB(tableIndex) | NT_UPD_HORZ;
+            buffer[1] = LSB(tableIndex);
+            scratchA = (0-1);
+        }
+        ++scratchA;
+
+    }
+    set_vram_update(NULL);
+
+}
+
+
 CODE_BANK_POP();
 CODE_BANK(PRG_BANK_GAME_TEXT);
 void draw_game_text(void) {
+    sfx_play(SFX_BOOP, SFX_CHANNEL_4);
     bank_bg(0);
 
     // Make sure we don't update the HUD at all while doing this.
@@ -77,6 +109,9 @@ void draw_game_text(void) {
     if (currentText == NULL) {
         crash_error_use_banked_details(ERR_GAME_TEXT_MISSING, ERR_GAME_TEXT_MISSING_EXPLANATION, NULL, NULL);
     }
+
+    banked_call(6, load_chr_ascii_internal);
+
 
     // First, we clear the HUD using our current HUD tiles. Note that this tile must be blank in both chr banks.
     // Any shared HUD elements (borders, etc) must also be present in both layouts.
@@ -90,16 +125,13 @@ void draw_game_text(void) {
     buffer[i] = NT_UPD_EOF;
     
     // This triggers drawing all the blanks we queued up.
-    set_vram_update(buffer);
+    // set_vram_update(buffer);
 
-    ppu_wait_nmi();
+    // ppu_wait_nmi();
 
     // Drawing done; make sure we don't try to keep drawing it to save some time.
-    set_vram_update(NULL);
+    // set_vram_update(NULL);
     // load_chr_bank_ingame_ascii();
-    banked_call(6, load_chr_ascii_internal);
-    bank_bg(1);
-    sfx_play(SFX_BOOP, SFX_CHANNEL_4);
 
 
     // First, we clear the HUD using our current HUD tiles. Note that this tile must be blank in both chr banks.
@@ -171,6 +203,7 @@ void draw_game_text(void) {
             }
             // Draw this line
             set_vram_update(buffer);
+            bank_bg(1);
             ppu_wait_nmi();
             set_vram_update(NULL);
 
@@ -202,12 +235,14 @@ void draw_game_text(void) {
     set_vram_update(buffer);
     ppu_wait_nmi();
     set_vram_update(NULL);
-    load_chr_bank_ingame_ascii_off();
 
     // Hide sprite 0 - it has now served its purpose.
     oam_spr(SPRITE_OFFSCREEN, SPRITE_OFFSCREEN, HUD_SPRITE_ZERO_TILE_ID, 0x00, 0);
 
+    banked_call(6, load_chr_normal_internal);
+    ppu_wait_nmi();
+
     // And finally put everything back how the game expects it.
-    set_chr_bank_0(chrBankTiles);
-    unset_nmi_chr_tile_bank();
+    // set_chr_bank_0(chrBankTiles);
+    // unset_nmi_chr_tile_bank();
 }

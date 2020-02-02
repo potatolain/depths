@@ -21,5 +21,8 @@
 // Draw the HUD
 void draw_hud(void);
 
+// Do that, but take a couple frames instead of disabling rendering
+void draw_hud_oneshot(void);
+
 // Update the number of hearts, coins, etc in the hud.
 void update_hud(void);

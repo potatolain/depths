@@ -200,8 +200,10 @@ void main(void) {
                 banked_call(PRG_BANK_GAME_TEXT, draw_game_text);
 
                 // I don't love that I did this, but meh...
+                /*ppu_off();
                 banked_call(PRG_BANK_HUD, draw_hud);
-                ppu_on_all();
+                ppu_on_all();*/
+                banked_call(PRG_BANK_HUD, draw_hud_oneshot);
 
                 gameState = GAME_STATE_RUNNING;
                 break;

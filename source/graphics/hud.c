@@ -2,7 +2,7 @@
 #include "source/graphics/hud.h"
 #include "source/globals.h"
 
-#define LIFE_PRES_TXT 0xc9
+#define LIFE_PRES_TXT 0xdf
 #define STAMINA_TXT 0xd9
 #define BAR_IMG 0xd0
 
@@ -32,8 +32,8 @@ void draw_hud(void) {
     vram_put(STAMINA_TXT + 2); // a
     
     // Left of preserver icons
-    vram_adr(0x2b60);
-    vram_put(0xe3);
+    // vram_adr(0x2b60);
+    // vram_put(0xa0);
 
     vram_adr(NAMETABLE_A + HUD_KEY_START - 40);
     vram_put(LIFE_PRES_TXT + 0);
@@ -48,6 +48,41 @@ void draw_hud(void) {
     vram_put(LIFE_PRES_TXT + 3);
 
     
+}
+
+// HACK: use the buffer from game_text
+extern unsigned char buffer[132];
+
+void draw_hud_oneshot(void) {
+    i = 0;
+    buffer[i++] = MSB(NAMETABLE_A + HUD_HEART_START - 32) | NT_UPD_HORZ;
+    buffer[i++] = LSB(NAMETABLE_A + HUD_HEART_START - 32);
+    buffer[i++] = 7;
+    for (j = 0; j != 6; ++j) {
+        buffer[i++] = STAMINA_TXT + j;
+    }
+    buffer[i++] = STAMINA_TXT + 2; // a
+
+
+    buffer[i++] = MSB(NAMETABLE_A + HUD_KEY_START - 40) | NT_UPD_HORZ;
+    buffer[i++] = LSB(NAMETABLE_A + HUD_KEY_START - 40);
+    buffer[i++] = 10;
+
+    buffer[i++] = LIFE_PRES_TXT + 0;
+    buffer[i++] = LIFE_PRES_TXT + 1;
+    buffer[i++] = LIFE_PRES_TXT + 2;
+    buffer[i++] = LIFE_PRES_TXT + 3;
+    buffer[i++] = LIFE_PRES_TXT + 2;
+    buffer[i++] = LIFE_PRES_TXT + 1;
+    buffer[i++] = LIFE_PRES_TXT + 4;
+    buffer[i++] = LIFE_PRES_TXT + 2;
+    buffer[i++] = LIFE_PRES_TXT + 1;
+    buffer[i++] = LIFE_PRES_TXT + 3;
+    
+    buffer[i++] = NT_UPD_EOF;
+
+    set_vram_update(buffer);
+
 }
 
 void update_hud(void) {

@@ -295,9 +295,9 @@ detectNTSC:
 	_main_ascii:
 		.incbin "graphics/ascii1.chr"
 	_header_ascii:
-		.incbin "graphics/header_final_ascii.chr"
+		.incbin "graphics/header_final2_ascii.chr"
 	_header_normal:
-		.incbin "graphics/header_final_normal.chr"
+		.incbin "graphics/header_final2_normal.chr"
 .segment "ROM_00"
 	_main_ascii2:
 		.incbin "graphics/ascii2.chr"
