@@ -1,8 +1,6 @@
 # Depths
 
-NOTE: Yes, the github screenshots are out of date now. I'll make some new ones soon!
-
-![blah](demostuff/ld44_003b.png)
+<img alt="Depths Title" src="demostuff/titleani.gif" width="382" />
 
 Depths is a game about survival. 
 
@@ -17,9 +15,11 @@ As you travel on, the seas become more treacherous. Can you make it through to t
 **Important**: This game makes some references to suicide. If this is a concern, you may wish
 to pass this game up.
 
-[Play](http://cpprograms.net/classic-gaming/depths)
+[Play](https://depths.nes.science/play/)
 
 [See updates on Twitter](https://twitter.com/cppchriscpp)
+
+[Game Site](https://depths.nes.science)
 
 ## Controls
 
@@ -32,7 +32,8 @@ Start (Enter): Pause
 
 ## About the Game
 
-![ld44_001b.png](demostuff/ld44_001b.png)
+<img alt="Depths Gameplay" src="demostuff/ld44_009.png" width="512" />
+
 
 I took a break from my usual carefree game style for this Ludum Dare. I wanted to make something that
 has an impact on the player for once. I really am not sure how I feel about how this game came out, but I feel
@@ -61,4 +62,4 @@ The first real commit for the project is here: https://github.com/cppchriscpp/de
 
 As usual, yep!
 
-![Photo Apr 28, 9 30 40 PM.jpg](demostuff/Photo%20Apr%2028,%209%2030%2040%20PM.jpg)
+![On a Console](demostuff/in_person.jpg)
