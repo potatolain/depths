@@ -121,10 +121,12 @@ RLE_HIGH	=TEMP+1
 RLE_TAG		=TEMP+2
 RLE_BYTE	=TEMP+3
 
+BANKSWITCH_TEMP: .res 1
+
 
 
 .segment "HEADER"
-
+/*
     .byte $4e,$45,$53,$1a
 	.byte <NES_PRG_BANKS
 	.byte 0
@@ -132,8 +134,17 @@ RLE_BYTE	=TEMP+3
 	.byte $21
 	.byte 0
 	.res 8,0
-
-
+*/
+  .byte "NES", $1A
+  .byte 8         ;UNROM has 8 16k banks; change this to 4 or 16 as needed
+  .byte 0         ;No CHR ROM
+  .byte $21, $08  ;Mapper 2, vert mirroring, NES 2.0
+  .byte $00       ;No submapper
+  .byte $00       ;PRG ROM not 4 MiB or larger
+  .byte $00       ;No PRG RAM
+  .byte $07       ;8192 (64 * 2^7) bytes CHR RAM, no battery
+  .byte $00       ;NTSC; use $01 for PAL
+  .byte $00       ;No special PPU
 
 .segment "STARTUP"
 
@@ -280,8 +291,8 @@ detectNTSC:
 
 	jmp _main			;no parameters
 
-	.include "source/neslib_asm/ft_drv/driver.s"
     .include "source/library/bank_helpers.asm"
+	.include "source/neslib_asm/ft_drv/driver.s"
 	.include "source/neslib_asm/neslib.asm"
 	.include "source/graphics/palettes.asm"
 

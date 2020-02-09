@@ -8,15 +8,21 @@ UNROM_PRG = $8000
 
 
 ; MMC1 needs a reset stub in every bank that will put us into a known state. This defines it for all banks.
+; NOTE: The length of this stub is EXTREMELY important. Don't alter the # of opcodes unless you also wanna update
+; the config for the size of the banks.
 .macro resetstub_in segname
 	.segment segname
 		.scope
 		
 			resetstub_entry:
 				sei
-				ldx #$FF
-				txs
-				stx MMC1_CTRL  ; Writing $80-$FF anywhere in $8000-$FFFF resets MMC1
+				
+				lda #0
+				jsr _set_prg_bank
+				nop
+				;ldx #$FF
+				;txs
+				;stx MMC1_CTRL  ; Writing $80-$FF anywhere in $8000-$FFFF resets MMC1
 				jmp start
 				.addr nmi, resetstub_entry, $0000
 		.endscope

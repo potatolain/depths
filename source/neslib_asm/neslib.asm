@@ -234,6 +234,7 @@ nmi:
 	sta $400F
 
     lda NMI_BANK_TEMP
+	sta BP_BANK
     jsr _set_prg_bank
 
 	pla
@@ -1246,16 +1247,18 @@ _music_play:
 
 	; @cppchriscpp Edit - forcing a swap to the music bank
 	; Need to temporarily swap banks to pull this off. 
-	tax ; Put our song into x for a moment...
+	;tax ; Put our song into x for a moment...
+	pha
 	; Being extra careful and setting BP_BANK to ours in case an nmi fires while we're doing this.
 	lda BP_BANK
-	pha
+	sta BANKSWITCH_TEMP
 	lda #SOUND_BANK
-	sta BP_BANK
+	;sta BP_BANK
 	; mmc1_register_write MMC1_PRG
-	sta UNROM_PRG
-	txa ; bring back the song number!
-
+	; sta UNROM_PRG
+	jsr _set_prg_bank
+	;txa ; bring back the song number!
+	pla
 
 	ldx #<music_data
 	stx <ft_music_addr+0
@@ -1269,9 +1272,10 @@ _music_play:
 	sta <MUSIC_PLAY
 
 	; Remember when we stored the old bank into BP_BANK and swapped? Time to roll back.
-	pla
+	lda BANKSWITCH_TEMP
 	sta BP_BANK
-	sta UNROM_PRG
+	; sta UNROM_PRG
+	jsr _set_prg_bank
 	; mmc1_register_write MMC1_PRG
 
 	rts
@@ -1311,6 +1315,7 @@ _music_pause:
 
 _sfx_play:
 
+
 .if(FT_SFX_ENABLE)
 	; TODO: Should I be blocking interrupts while doing weird bank stuff?
 	; @cppchriscpp Edit - forcing a swap to the music bank
@@ -1318,11 +1323,12 @@ _sfx_play:
 	tay ; Put our song into y for a moment...
 	; Being extra careful and setting BP_BANK to ours in case an nmi fires while we're doing this.
 	lda BP_BANK
-	pha
+	sta BANKSWITCH_TEMP
 	lda #SOUND_BANK
 	sta BP_BANK
 	; mmc1_register_write MMC1_PRG
-	sta UNROM_PRG
+	; sta UNROM_PRG
+	jsr _set_prg_bank
 	tya ; bring back the song number!
 
 	and #$03
@@ -1333,10 +1339,11 @@ _sfx_play:
 	jsr FamiToneSfxPlay
 
 	; Remember when we stored the old bank into BP_BANK and swapped? Time to roll back.
-	pla
-	sta BP_BANK
+	lda BANKSWITCH_TEMP
+	; sta BP_BANK
 	; mmc1_register_write MMC1_PRG
-	sta UNROM_PRG
+	; sta UNROM_PRG
+	jsr _set_prg_bank
 
 	rts
 

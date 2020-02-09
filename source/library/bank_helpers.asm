@@ -13,9 +13,29 @@
 .export _set_nmi_chr_tile_bank, _unset_nmi_chr_tile_bank
 .export _set_mirroring
 
+.macro LOOKUP_TABLE 
+    .byte 0, 1, 2, 3, 4, 5, 6
+.endmacro
+
 ; UNROM quirk.. you have to write the value to a location that stores that same value. So, lets set up a small LUT
+.segment "ROM_00"
 bank_lookup: 
-    .byte 0, 1, 2, 3, 4, 5, 6, 7
+    LOOKUP_TABLE
+.segment "ROM_01"
+    LOOKUP_TABLE
+.segment "ROM_02"
+    LOOKUP_TABLE
+.segment "ROM_03"
+    LOOKUP_TABLE
+.segment "ROM_04"
+    LOOKUP_TABLE
+.segment "ROM_05"
+    LOOKUP_TABLE
+.segment "ROM_06"
+    LOOKUP_TABLE
+
+
+.segment "CODE"
 
 _set_prg_bank:
     tax
@@ -24,8 +44,8 @@ _set_prg_bank:
     pha
     ; Store new bank into BP_BANK
     stx BP_BANK
-    txa
 
+    lda bank_lookup, x
     sta bank_lookup, x 
 
     pla
