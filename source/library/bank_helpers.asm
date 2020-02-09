@@ -18,9 +18,11 @@
 .endmacro
 
 ; UNROM quirk.. you have to write the value to a location that stores that same value. So, lets set up a small LUT
-.segment "ROM_00"
+.segment "RODATA"
 bank_lookup: 
     LOOKUP_TABLE
+    /*
+
 .segment "ROM_01"
     LOOKUP_TABLE
 .segment "ROM_02"
@@ -33,7 +35,7 @@ bank_lookup:
     LOOKUP_TABLE
 .segment "ROM_06"
     LOOKUP_TABLE
-
+*/
 
 .segment "CODE"
 
