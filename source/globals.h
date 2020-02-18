@@ -99,7 +99,7 @@ extern const unsigned char header_normal[768];
 #define SET_ADDR_VALUE(addr, value) *(unsigned char*)(addr) = value
 
 
-#define DEBUG 1
+#define DEBUG 0
 #define IS_KIOSK 0
 
 // In kiosk mode, how long until we kick you out if you don't do any inputs. Applies to both the "you died" screen and game w/ no input at all.
