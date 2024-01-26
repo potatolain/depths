@@ -83,8 +83,7 @@ void draw_credits_screen(void) {
     put_str(NTADR_A(9, 21), "Copyright");
     put_str(NTADR_A(19, 21), currentYear);
 
-    put_str(NTADR_A(7, 23), "Christopher Parker");
-    put_str(NTADR_A(8, 25), "aka @cppchriscpp");
+    put_str(NTADR_A(7, 23), "Sarah Parker");
 
 
     // Hide all existing sprites
