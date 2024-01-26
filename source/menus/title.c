@@ -141,7 +141,7 @@ void draw_title_screen_real(void) {
 	vram_put(0xeb);
 	
 	put_str(NTADR_A(4, 28), currentYear);
-	put_str(NTADR_A(9, 28), "Christopher Parker");
+	put_str(NTADR_A(9, 28), "Sarah Parker");
 
 	// put_str(NTADR_A(10, 16), "Press Start!");
 	put_str(NTADR_A(10, 20), "Peaceful Game");
