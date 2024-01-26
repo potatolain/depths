@@ -60,4 +60,4 @@ The first real commit for the project is here: https://gh.nes.science/depths/com
 
 As usual, yep!
 
-![On a Console](demostuff/in_person.jpg)
+![On a Console](demostuff/Photo%20Apr%2028%2C%209%2030%2040%20PM.jpg)
