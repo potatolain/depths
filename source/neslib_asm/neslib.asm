@@ -2,7 +2,7 @@
 ;with improvements by VEG
 ;Feel free to do anything you want with this code, consider it Public Domain
 
-; NOTE: Edits by cppchriscpp: 
+; NOTE: Edits by igwgames: 
 ; - Added mmc1 bank swapping
 ; - Made the nmi and music_play methods support swapping to a set SOUND_BANK before reading data.
 ; - Added second split method with y split support from na_th_an's NESDev code
@@ -305,7 +305,7 @@ FamiToneSfxInit:
 	
 	ldy #0
 
-; @cppchriscpp change:
+; @igwgames change:
 ; Disable the famitracker PAL features... it has a weird bug where if I disable PAL, this var
 ; is no longer defined, and ca65 does not like that.	
 ;	.if(FT_PITCH_FIX)
@@ -998,7 +998,7 @@ _split:
 	bvc @4
 
 	; Wait a few cycles to align with the *next* line.
-	; @cppchriscpp hack
+	; @igwgames hack
 	ldx #0
 	@looper:
 		inx
@@ -1034,7 +1034,7 @@ _wait_for_sprite0_hit:
 	bvc @4
 
 	; Wait a few cycles to align with the *next* line.
-	; @cppchriscpp hack
+	; @igwgames hack
 	ldx #0
 	@looper:
 		inx
@@ -1104,7 +1104,7 @@ _split_y:
    bvc @4
 
 	; Wait a few cycles to align with the *next* line.
-	; @cppchriscpp hack
+	; @igwgames hack
 	ldx #0
 	@looper:
 		inx
@@ -1244,7 +1244,7 @@ _vram_write:
 
 _music_play:
 
-	; @cppchriscpp Edit - forcing a swap to the music bank
+	; @igwgames Edit - forcing a swap to the music bank
 	; Need to temporarily swap banks to pull this off. 
 	tax ; Put our song into x for a moment...
 	; Being extra careful and setting BP_BANK to ours in case an nmi fires while we're doing this.
@@ -1311,7 +1311,7 @@ _sfx_play:
 
 .if(FT_SFX_ENABLE)
 	; TODO: Should I be blocking interrupts while doing weird bank stuff?
-	; @cppchriscpp Edit - forcing a swap to the music bank
+	; @igwgames Edit - forcing a swap to the music bank
 	; Need to temporarily swap banks to pull this off. 
 	tay ; Put our song into y for a moment...
 	; Being extra careful and setting BP_BANK to ours in case an nmi fires while we're doing this.

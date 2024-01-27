@@ -36,14 +36,14 @@ I had to make it. It probably isn't for everyone, but I guess it was for me.
 
 This game was developed for the original Nintendo Entertainment System. A ROM download is available below
 
-It was built using [NES Starter Kit](https://cppchriscpp.github.io/nes-starter-kit) - a C-based game library
+It was built using [NES Starter Kit](https://nes-starter-kit.nes.science) - a C-based game library
 for the NES. 
 
 # A Note on git history
 
 I cloned nes-starter-kit to start this off, rather than copying it this time. (For some reason...)
 
-The first real commit for the project is here: https://github.com/cppchriscpp/depths/commit/26d51c2c2881f616e01cc20af0b90f4213728e76
+The first real commit for the project is here: https://gh.nes.science/depths/commit/26d51c2c2881f616e01cc20af0b90f4213728e76
 
 (There is one commit prior that set up continuous integration and renamed the rom, but there's no project changes in that)
 
