@@ -1,7 +1,5 @@
 # Depths
 
-<img alt="Depths Title" src="demostuff/titleani.gif" width="382" />
-
 Depths is a game about survival. 
 
 You awake in the middle of the ocean, clinging to a piece of driftwood. You have no memory
