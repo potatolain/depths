@@ -1,4 +1,0 @@
-The black cart I have is an SKROM 128 / 128
-
-NEED to copy all data to the inl-retro-prog ROMS folder (because it's hella finnicky)
-
