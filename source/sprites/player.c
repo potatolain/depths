@@ -419,8 +419,8 @@ const unsigned char* woodGame =
                                 "                              "
 
                                 "This reminds me that I still  "
-                                "need to find out JJ's secret  "
-                                "in The Missing.               "
+                                "need to find out what happens "
+                                "to Chloe Price.               "
 
                                 "One more reason to keep       "
                                 "treading water...";
